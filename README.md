@@ -33,7 +33,7 @@ To hide the customisation options, [hide the folder](https://support.desmos.com/
 
 ![alt text](https://github.com/Fblaze1/Datasmos/blob/master/datasmos%20getting%20started%20demo.gif "Getting Started Demo GIF")
 
-# Introduction and Concepts
+## Introduction and Concepts
 
 
 The two main things this datasmos does are:
