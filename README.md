@@ -24,7 +24,8 @@ Enter the following lines into the console, running each one by pressing <kdb>En
 
 * `irisDf = csvToDataFrame(irisCsv)`
 * `irisDf.head(5)`
-* `irisDf.splot("plot1","species","petal_length")`
+* `irisDf.rename("petal_length","petal length")`
+* `irisDf.splot("plot1","species","petal length")`
 
 This will create an interactive barchart that you can customise by dragging the coloured dots on the barchart
 
