@@ -42,3 +42,5 @@ The two main things this datasmos does are:
 
 Datasmos is intended to complement the [existing statistical features](https://support.desmos.com/hc/en-us/articles/360022401451-Statistics) present in desmos, not to replace them. Therefore, to get the most out of datasmos you have to first be able to get the most out of desmos.
 
+The DataFrame is the fundamental object in datasmos and all the useful functions in datasmos are either methods associated with DataFrames or functions for turning data into DataFrames. DataFrames are an object that can be thought of as a spreadsheet, containing data organised into rows and columns and a header row at the top specifying the unique header of each column.
+
