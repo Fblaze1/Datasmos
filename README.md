@@ -8,13 +8,13 @@ Open a [new desmos page](https://www.desmos.com/calculator)
 
 In that page, open the javascript console, which can be done using <kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>J</kbd>
 
-Copy the raw code from [datasmos.js](datasmos.js)
+Copy the [raw datasmos code](https://raw.githubusercontent.com/Fblaze1/Datasmos/master/datasmos.js)
 
 Paste the code into the console and press <kbd>Enter</kbd> to run it
 
 Enter ``` irisCsv = String.raw`` ``` into the javascript console
 
-Copy the text from the [iris dataset CSV file](iris.csv)
+Copy the [raw iris dataset CSV text](https://raw.githubusercontent.com/Fblaze1/Datasmos/master/iris.csv)
 
 Paste the text in between the backticks (``` `` ```) in the line you just entered into the console, then press <kbd>Enter</kbd>
 
