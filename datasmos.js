@@ -1,4 +1,4 @@
-datasmosVersion = "1.0"
+datasmosVersion = "1.0.1"
 
 {//table manipulation toolkit v1.4.1
 //assume the code is being run in a desmos page and the Desmos calculator object is instantiated as Calc 
@@ -2344,7 +2344,7 @@ class DataFrame {
 		const subsetHeaderRow = this.headerRow.filter((x,i) => includeIndices[i])
 		const subsetDataColumns = this.dataColumns.filter((x,i) => includeIndices[i])
 		const subsetDataRows = transpose(subsetDataColumns)
-		return new DataFrame()
+		return new DataFrame(subsetHeaderRow,subsetDataRows)
 	}
 	
 	splitByFactor(header,removeFactorFromSubset = false){//returns array of new DataFrames
