@@ -2,7 +2,12 @@
 
 A script for performing data analysis and visualisation in the desmos online graphing calculator
 
-## Getting started
+## Table of Contents
+
+* [Getting Started](#getting-started)
+* [Introduction and Concepts](#introduction-and-concepts)
+
+## Getting Started
 
 Open a [new desmos page](https://www.desmos.com/calculator)
 
