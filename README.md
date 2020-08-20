@@ -32,3 +32,6 @@ This will create an interactive barchart that you can customise by dragging the 
 To hide the customisation options, [hide the folder](https://support.desmos.com/hc/en-us/articles/204980525-Folders) titled "[plot1] customisation"
 
 ![alt text](https://github.com/Fblaze1/Datasmos/blob/master/datasmos%20getting%20started%20demo.gif "Getting Started Demo GIF")
+
+# Introduction and concepts
+
