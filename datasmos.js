@@ -1,4 +1,4 @@
-datasmosVersion = "1.0.1"
+datasmosVersion = "1.1.0"
 
 {//table manipulation toolkit v1.4.1
 //assume the code is being run in a desmos page and the Desmos calculator object is instantiated as Calc 
@@ -2015,7 +2015,16 @@ class DataFrame {
 					}
 					//column header
 					else if (obj.headerRow.includes(prop)){
-						return obj.data.map(row=>row[prop])
+						return {
+								...obj.data.map(row=>row[prop])
+								,
+								levels:
+									(obj.headerTypeDict[prop]=="categorical")
+									?//if column being accessed is categorical
+										obj.factorLevelDict[prop]
+									://otherwise
+										undefined
+						}
 					}
 					//list of column headers - when indexing an object with an array, js coerces the array to string so .split(",") is required to undo this
 					else if (prop.split(",") instanceof Array && prop.split(",").every(x=>obj.headerRow.includes(x))){
@@ -2314,25 +2323,6 @@ class DataFrame {
 		}
 	}
 	
-	levels(header){
-		if (this.headerRow.includes(header)){
-			const columnType =  this.headerTypeDict[header]
-			if (columnType == "categorical"){
-				return this.factorLevelDict[header]
-			}
-			else if(columnType=="continuous"){
-				throw new DataFrameError(`cannot obtain the levels of the continuous variable "${header}"
-				Hint: you can coerce this variable to categorical by using the DataFrame.forceCategorical() method`)
-			}
-			else{//in case any types beyond continuous and categorical are ever added or if headerTypeDict is manually mutated incorrectly
-				throw new DataFrameError(`cannot obtain the levels of the ${columnType} variable "${header}"`)
-			}
-		}
-		else{
-			throw new DataFrameError(`this DataFrame has no column with the header "${header}"`)
-		}
-	}
-	
 	subsetRows(conditionFunction){//returns new DataFrame
 		//conditionFunction example: row => row["id"]=="1"
 		return new DataFrame(this.headerRow,this.data.filter(conditionFunction).map(row=>Object.values(row)))
@@ -2348,8 +2338,18 @@ class DataFrame {
 	}
 	
 	splitByFactor(header,removeFactorFromSubset = false){//returns array of new DataFrames
-		const factorLevels = this.levels(header)//the levels() method includes checks to ensure the header is valid and the corresponding column type is categorical
-		return factorLevels.map(level => this.subsetRows(row=>row[header]==level))
+		if (this.headerRow.includes(header)){	
+			if (this.headerTypeDict[header] == "categorical"){
+				var levels = this.factorLevelDict[header]
+				return levels.map(level => this.subsetRows(row=>row[header]==level))
+			}
+			else{
+				throw new DataFrameError(`cannot split a DataFrame based on the continuous variable "${header}"`)
+			}
+		}
+		else{
+			throw new DataFrameError(`this DataFrame has no column with the header "${header}"`)
+		}
 	}
 	
 	//for compatibility with functions that were written for old DataFrame class
