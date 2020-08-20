@@ -1,3 +1,5 @@
+datasmosVersion = "1.0"
+
 {//table manipulation toolkit v1.4.1
 //assume the code is being run in a desmos page and the Desmos calculator object is instantiated as Calc 
 //use of "Table" in the name of a function indicates that it takes tableId as an argument
