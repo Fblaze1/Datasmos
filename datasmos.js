@@ -1,4 +1,4 @@
-datasmosVersion = "1.2.0"
+datasmosVersion = "1.3.0"
 
 {//table manipulation toolkit v1.4.1
 //assume the code is being run in a desmos page and the Desmos calculator object is instantiated as Calc 
@@ -2182,6 +2182,10 @@ class DataFrame {
 			}
 		)
 		return newDataFrame
+	}
+	
+	toCsv(sep=","){//return the DataFrame as CSV string
+		return [this.headerRow,...this.dataRows].map(row=>row.join(sep)).join("\n")
 	}
 	
 	head(n=5){//display a table (in the console) of the header row and the first five rows of the table
