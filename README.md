@@ -191,7 +191,9 @@ merged = df1Clone.merge(df2)
 ```
 
 ### Split a table based on a categorical variable
+
 `splitByFactor(header)`
+
 Useful for creating plots 
 ```javascript
 irisDfsBySpecies = irisDf.splitByFactor("species")
