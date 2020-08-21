@@ -1,4 +1,4 @@
-datasmosVersion = "2.0.0"
+datasmosVersion = "2.0.1"
 
 transpose = function(matrix){
 	//https://stackoverflow.com/questions/17428587/transposing-a-2d-array-in-javascript
@@ -28,16 +28,16 @@ class DataFrameError extends Error{
   }
 }
 
-class DesmosIdError extends Error{
+class DatasmosIdError extends Error{
 	constructor(message) {
     super(message)
-    this.name = "DesmosIdError"
+    this.name = "DatasmosIdError"
   }
 }
 
 generateDataExpressionsCategoricalByContinuous = function(id,levels,xCategoricalData,yContinuousData){
 	if(typeof(id)!="string" || Boolean(id.match(/[^0-9A-Za-z]/))){//ensure id is a string composed only of letters and digits
-		throw new DesmosIdError(`id must be a string containing only letters and digits, no spaces or punctuation\n	id type: ${typeof(id)}\nid: ${id}`)
+		throw new DatasmosIdError(`id must be a string containing only letters and digits, no spaces or punctuation\n	id type: ${typeof(id)}\nid: ${id}`)
 	}
 	//ensure levels,xCategoricalData and yCategoricalData inputs are the correct types
 	if (!(levels instanceof Array) || levels.some(x=>typeof(x)!="string")) throw new Error(`levels must be an array of strings`)
@@ -293,7 +293,7 @@ generateDataExpressionsCategoricalByContinuous = function(id,levels,xCategorical
 	
 generateBarchartExpressionsCategoricalByContinuous = function(id,levels,xTitle,yTitle,barColours = "default",barOutlineColours = "default"){//barColours & barOutlineColours : arrays of hex colour strings, equal in length to levels
 	if(typeof(id)!="string" || Boolean(id.match(/[^0-9A-Za-z]/))){//ensure id is a string composed only of letters and digits
-		throw new DesmosIdError(`id must be a string containing only letters and digits, no spaces or punctuation\n	id type: ${typeof(id)}\nid: ${id}`)
+		throw new DatasmosIdError(`id must be a string containing only letters and digits, no spaces or punctuation\n	id type: ${typeof(id)}\nid: ${id}`)
 	}
 	//ensure levels,xTitle,yTitle,barColours and barOutlineColours inputs are the correct types
 	if (!(levels instanceof Array) || levels.some(x=>typeof(x)!="string")) throw new Error(`levels must be an array of strings`)
@@ -1335,7 +1335,7 @@ generateBarchartExpressionsCategoricalByContinuous = function(id,levels,xTitle,y
 
 generateOneWayAnovaExpressionsCategoricalByContinuous = function(id){
 	if(typeof(id)!="string" || Boolean(id.match(/[^0-9A-Za-z]/))){//ensure id is a string composed only of letters and digits
-		throw new DesmosIdError(`id must be a string containing only letters and digits, no spaces or punctuation\n	id type: ${typeof(id)}\nid: ${id}`)
+		throw new DatasmosIdError(`id must be a string containing only letters and digits, no spaces or punctuation\n	id type: ${typeof(id)}\nid: ${id}`)
 	}
 	defaultValues = {
 		"F_{labelDragX}":1,//F label relative x position
