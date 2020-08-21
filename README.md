@@ -6,7 +6,7 @@ A script for performing data analysis and visualisation in the desmos online gra
 
 * [Getting Started](#getting-started)
 * [Introduction and Concepts](#introduction-and-concepts)
-* [General usage + Examples](#general-usage-+-examples)
+* [General usage + Examples](#general-usage--examples)
 * [Statistical analysis and data visualisation](#statistical-analysis-and-data-visualisation)
 * [DataFrame manipulation](#dataframe-manipulation)
 
