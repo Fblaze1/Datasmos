@@ -1,4 +1,4 @@
-datasmosVersion = "2.0.1"
+datasmosVersion = "2.1.1"
 
 transpose = function(matrix){
 	//https://stackoverflow.com/questions/17428587/transposing-a-2d-array-in-javascript
@@ -1825,19 +1825,7 @@ class DataFrame {
 		}
 		//otherwise, update _factorLevelDict before returning it
 		else{
-			//the distinction between this code and the code in the updateFactorLevelDict() method is that this code is run internally so cannot access the this[header] abstraction, instead using this.data.map(row=>row[header])
-			this._factorLevelDict = Object.fromEntries(
-				this.headerRow.map(
-					header => [
-						header,
-						(this.headerTypeDict[header]=="categorical")?
-						//if the column corresponding to header is categorical:
-							[...new Set(this.data.map(row=>row[header]))]//remove the duplicates from the column and assign the resulting list of levels to the corresponding entry in factorLevelDict
-						://otherwise
-							[]//assign an empty array to the corresponding entry in factorLevelDict
-					]
-				)
-			)
+			this.updateFactorLevelDict()
 			return this._factorLevelDict
 		}
 	}
@@ -1855,7 +1843,7 @@ class DataFrame {
 	}
 	
 	updateFactorLevelDict(){
-		this.factorLevelDict = Object.fromEntries(
+		this._factorLevelDict = Object.fromEntries(
 			this.headerRow.map(
 				header => [
 					header,
