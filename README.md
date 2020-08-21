@@ -101,13 +101,21 @@ The `head` and `randomHead` methods use the [`console.table` function](https://d
 
 ## Statistical analysis and data visualisation
 
-### Make a scatterplot with `scatterplot()`
+### Make a scatterplot
 
-### Make a barchart with `barchart()`
+`scatterplot()`
 
-### Perform an Analysis of Variance with `ANOVA()`
+### Make a barchart
 
-### Make a scatterplot with a line of best fit using `splot()`
+`barchart()`
+
+### Perform an Analysis of Variance
+
+`ANOVA()`
+
+### Make a scatterplot with a line of best fit
+
+`splot()`
 
 ## DataFrame manipulation
 
@@ -144,4 +152,14 @@ irisDf.randomHead()
 `merge`
 
 ### Make a copy of a DataFrame
+
 `clone`
+
+### Split a table based on a categorical variable
+`splitByFactor(header)`
+Useful for creating plots 
+```javascript
+irisDfsBySpecies = irisDf.splitByFactor("species")
+irisDfsBySpecies.forEach(df=>df.randomHead())
+irisDfsBySpecies.forEach((df,i)=>df.splot(`species${irisDf.factorLevelDict["species"][i]}`,"petal length","sepal length"))
+```
