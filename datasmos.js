@@ -1986,12 +1986,13 @@ class DataFrame {
 				header => [header,false]
 			)
 		)
-		this.properties = ["properties","data","forceCategoricalDict","headerRow","headerTypeDict","factorLevelDict","dataRows","dataColumns","size","headerIndexDict"]
+		this.gettableProperties = ["gettableProperties","settableProperties","data","forceCategoricalDict","headerRow","headerTypeDict","factorLevelDict","dataRows","dataColumns","size","headerIndexDict"]
+		this.settableProperties = ["data"]
 		return new Proxy(this,//Proxy only affects external get and set calls so cannot be used internally
 			{
 				get: function(obj,prop){
 					//DataFrame property
-					if (obj.properties.includes(prop)){
+					if (obj.gettableProperties.includes(prop)){
 						return Reflect.get(obj,prop)
 					}
 					//DataFrame method - https://2ality.com/2015/10/intercepting-method-calls.html
@@ -2033,15 +2034,15 @@ class DataFrame {
 						return prop.split(",").map(header=>obj.data.map(row=>row[header]))
 					}
 					else{
-						throw new DataFrameError(`invalid property name: "${prop}"`)
+						throw new DataFrameError(`cannot get the property "${prop}"`)
 					}
 				},
 				set: function(obj,prop,value){
-					if (obj.properties.includes(prop)){
+					if (obj.settableProperties.includes(prop)){
 						Reflect.set(obj,prop,value)
 						return true
 					}
-					else if (value instanceof Array){
+					else if (value instanceof Array && !obj.gettableProperties.includes(prop)){
 						if(value.length == obj.size[0]){
 							Reflect.set(obj,"data",obj.data.map((row,i)=>({...row,[prop]:value[i]})))
 							return true
@@ -2051,7 +2052,7 @@ class DataFrame {
 						}
 					}
 					else{
-						throw new DataFrameError(`invalid property name: "${prop}"`)
+						throw new DataFrameError(`cannot set the property "${prop}"`)
 					}
 				}
 			}
@@ -2140,30 +2141,6 @@ class DataFrame {
 				)
 			)
 			return this._factorLevelDict
-		}
-	}
-	
-	set factorLevelDict(value){
-		if (value instanceof Object){
-			if (//ensure new factorLevelDict value has the same keys as headerRow
-				arraysEqual(Object.keys(value).sort(),this.headerRow.sort())
-			){
-				if(//ensure new factorLevelDict value has array values
-					Object.values(value).every(x=>x instanceof Array)
-				){
-					this._factorLevelDict = value
-					return true
-				}
-				else{
-					throw new DataFrameError(`all values in factorLevelDict must be arrays (empty array for continuous variables)`)
-				}
-			}
-			else{
-				throw new DataFrameError(`factorLevelDict must have an entry for each column header in the DataFrame`)
-			}
-		}
-		else{
-			throw new DataFrameError(`factorLevelDict must be an object with an entry for each column header in the DataFrame`)
 		}
 	}
 	
