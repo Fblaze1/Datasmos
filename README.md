@@ -97,7 +97,24 @@ irisDf.randomHead(10)
 ```
 The `head` and `randomHead` methods use the [`console.table` function](https://developer.mozilla.org/en-US/docs/Web/API/Console/table), a very handy and underappreciated relative of `console.log`.
 
-### Export a DataFrame to CSV or TSV with `toCsv()`
+### Export a DataFrame to CSV or TSV
+
+Convert to CSV:
+
+`df.toCsv()`
+
+Convert to TSV:
+
+`df.toCsv(sep="\t")`
+
+You can use JavaScript's `copy()` function to copy the output of this function to your clipboard to paste it elsewhere:
+
+`copy(df.toCsv())`
+
+TSV strings can be pasted into spreadsheet software to create a spreadsheet representation of the DataFrame's data
+Both CSV strings and TSV strings can be pasted into desmos to create a table representation of the DataFrame's data, but this isn't recommended for particularly large DataFrames and **won't work for DataFrames with non-numerical values**
+
+The output of this function removes the quotes around strings so values of `1` and `"1"` will be represented identically
 
 ## Statistical analysis and data visualisation
 
@@ -120,7 +137,9 @@ The `head` and `randomHead` methods use the [`console.table` function](https://d
 
 ## DataFrame properties
 
-Most DataFrame properties can be read but not written to - you can get them but not set them.
+Most DataFrame properties can be read but not written to - you can get them but not set them. 
+
+You can access a DataFrame's properties like this `irisDf.size` or like this `irisDf["size"]`
 
 ### `size`
 
@@ -129,15 +148,55 @@ The first item in the array is the number of rows and the second is the number o
 
 ### `data`
 
+The data, stored as an array of row objects that contain information about the values in the row and the column header associated with each value.
+Example of a row object from `irisDf`:
+```javascript
+{"sepal length":"4.4","sepal width":"3.2","petal length":"1.3","petal width":"0.2","species":"setosa"}
+```
+
 ### `dataRows` 
+
+A 2D array containing the data and no information about the column headers associated with the data.
+
+Each row in the 2D array corresponds to a row in the DataFrame
 
 ### `dataColumns`
 
+A 2D array containing the data and no information about the column headers associated with the data.
+
+Each row in the 2D array corresponds to a column in the DataFrame
+
 ### `headerRow`
+
+An array containing the headers of each column
+
+It can be thought of as the header row in a spreadsheet
 
 ### `headerTypeDict`
 
+An object/dictionary that contains information about the data type (`"categorical"` or `"continuous"`) of each column
+
+```javascript
+irisDf.headerTypeDict["petal length"]
+//output: "continuous"
+
+irisDf.headerTypeDict["species"]
+//output: "categorical"
+```
+
 ### `factorLevelDict`
+
+An object/dictionary that contains an array for each factor ( `"categorical"` variable) containing its levels (the set of distinct values that variable can take),
+
+Every column has a corresponding entry in `factorLevelDict` - for `"continuous"` columns, which aren't factors, this entry is an empty array.
+
+```javascript
+irisDf.factorLevelDict["species"]
+//output:  ["setosa", "versicolor", "virginica"]
+
+irisDf.factorLevelDict["petal length"]
+//output: []
+```
 
 ## DataFrame manipulation
 
