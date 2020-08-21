@@ -1,4 +1,4 @@
-datasmosVersion = "2.1.1"
+datasmosVersion = "2.2.0"
 
 transpose = function(matrix){
 	//https://stackoverflow.com/questions/17428587/transposing-a-2d-array-in-javascript
@@ -1931,7 +1931,10 @@ class DataFrame {
 		}
 	}
 	
-	addRow(newRow){
+	addRow(newRow,index = -1){
+		if (index < 0){
+			index = this.data.length+1+index //the +1 is to make .splice() work as one would expect
+		}
 		if (newRow instanceof Array){
 			if (newRow.length == this.headerRow.length){//ensure newRow has the same length as headerRow
 				if(//ensure newRow has the same data types as each corresponding column
@@ -1940,7 +1943,9 @@ class DataFrame {
 							(isNaN(x) == isCategorical(this.dataColumns[i]))
 					)
 				){
-					this.data.push(
+					this.data.splice(
+						index,
+						0,//deleteCount = 0
 						Object.fromEntries(
 							newRow.map(
 								(x,i)=>
@@ -1968,10 +1973,19 @@ class DataFrame {
 							(isNaN(keyValuePair[1]) == isCategorical(this.data.map(row=>row[keyValuePair[0]])))
 					)
 				){
-					this.data.push(newRow)
+					this.data.splice(
+						index,
+						0,//deleteCount = 0
+						Object.fromEntries(//reorder newRow to ensure its values are in the same order as the rest of the DataFrame
+							this.headerRow.map(
+								header =>
+									[header,newRow[header]]
+							)
+						)
+					)
 				}
 				else{
-					throw new DataFrameError(`new row object must have the same types (categoric/continuous) as each corresponding column`)//TODO
+					throw new DataFrameError(`new row object must have the same types (categoric/continuous) as each corresponding column`)
 				}
 			}
 			else{
