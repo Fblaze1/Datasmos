@@ -1,3 +1,5 @@
+datasmosVersion = "1.3.0"
+
 {//table manipulation toolkit v1.4.1
 //assume the code is being run in a desmos page and the Desmos calculator object is instantiated as Calc 
 //use of "Table" in the name of a function indicates that it takes tableId as an argument
@@ -1984,12 +1986,13 @@ class DataFrame {
 				header => [header,false]
 			)
 		)
-		this.properties = ["properties","data","forceCategoricalDict","headerRow","headerTypeDict","factorLevelDict","dataRows","dataColumns","size","headerIndexDict"]
+		this.gettableProperties = ["gettableProperties","settableProperties","data","forceCategoricalDict","headerRow","headerTypeDict","factorLevelDict","dataRows","dataColumns","size","headerIndexDict"]
+		this.settableProperties = ["data"]
 		return new Proxy(this,//Proxy only affects external get and set calls so cannot be used internally
 			{
 				get: function(obj,prop){
 					//DataFrame property
-					if (obj.properties.includes(prop)){
+					if (obj.gettableProperties.includes(prop)){
 						return Reflect.get(obj,prop)
 					}
 					//DataFrame method - https://2ality.com/2015/10/intercepting-method-calls.html
@@ -2013,22 +2016,33 @@ class DataFrame {
 					}
 					//column header
 					else if (obj.headerRow.includes(prop)){
-						return obj.data.map(row=>row[prop])
+						return Object.defineProperty(obj.data.map(row=>row[prop]),
+							"levels",{
+								value: 
+									(obj.headerTypeDict[prop]=="categorical")
+									?//if column being accessed is categorical
+										obj.factorLevelDict[prop]
+									://otherwise
+										undefined
+								,
+								enumerable: false
+							}
+						)
 					}
 					//list of column headers - when indexing an object with an array, js coerces the array to string so .split(",") is required to undo this
 					else if (prop.split(",") instanceof Array && prop.split(",").every(x=>obj.headerRow.includes(x))){
 						return prop.split(",").map(header=>obj.data.map(row=>row[header]))
 					}
 					else{
-						throw new DataFrameError(`invalid property name: "${prop}"`)
+						throw new DataFrameError(`cannot get the property "${prop}"`)
 					}
 				},
 				set: function(obj,prop,value){
-					if (obj.properties.includes(prop)){
+					if (obj.settableProperties.includes(prop)){
 						Reflect.set(obj,prop,value)
 						return true
 					}
-					else if (value instanceof Array){
+					else if (value instanceof Array && !obj.gettableProperties.includes(prop)){
 						if(value.length == obj.size[0]){
 							Reflect.set(obj,"data",obj.data.map((row,i)=>({...row,[prop]:value[i]})))
 							return true
@@ -2038,19 +2052,21 @@ class DataFrame {
 						}
 					}
 					else{
-						throw new DataFrameError(`invalid property name: "${prop}"`)
+						throw new DataFrameError(`cannot set the property "${prop}"`)
 					}
 				}
 			}
 		)
 	}
 	
-	//methods other than getters and setters are  called externally so goes through the Proxy, meaning the external properties like this.headerTypeDict must be referred to, not the internal this._headerTypeDict
-	
+	//methods are called internally within the base DataFrame object, not through the Proxy, meaning they can only use getters and setters defined outside of the Proxy
+	//therefore, methods cannot get the column with a corresponding header using this[header] - instead they must use this.data.map(row=>row[header])
+
 	forceCategorical(header){
 		if (this.headerRow.includes(header)){
 			this.forceCategoricalDict[header]=true
 			this.headerTypeDict[header] = "categorical"
+			this.updateFactorLevelDict()
 		}
 		else{
 			throw new DataFrameError(`"${header}" is not a valid column header`)
@@ -2068,6 +2084,7 @@ class DataFrame {
 			){
 				this.forceCategoricalDict[header]=false
 				this.headerTypeDict[header] = "continuous"
+				this.updateFactorLevelDict()
 			}
 			else{
 				throw new DataFrameError(`"${header}" is a categorical variable and cannot be coerced to continuous`)
@@ -2127,30 +2144,6 @@ class DataFrame {
 		}
 	}
 	
-	set factorLevelDict(value){
-		if (value instanceof Object){
-			if (//ensure new factorLevelDict value has the same keys as headerRow
-				arraysEqual(Object.keys(value).sort(),this.headerRow.sort())
-			){
-				if(//ensure new factorLevelDict value has array values
-					Object.values(value).every(x=>x instanceof Array)
-				){
-					this._factorLevelDict = value
-					return true
-				}
-				else{
-					throw new DataFrameError(`all values in factorLevelDict must be arrays (empty array for continuous variables)`)
-				}
-			}
-			else{
-				throw new DataFrameError(`factorLevelDict must have an entry for each column header in the DataFrame`)
-			}
-		}
-		else{
-			throw new DataFrameError(`factorLevelDict must be an object with an entry for each column header in the DataFrame`)
-		}
-	}
-	
 	get dataRows(){
 		return this.data.map(row=>Object.values(row))
 	}
@@ -2168,14 +2161,31 @@ class DataFrame {
 			this.headerRow.map(
 				header => [
 					header,
-					(this.headerTypeDict[header]=="categorical")
+					((this.headerTypeDict[header]=="categorical") || (this.forceCategoricalDict[header] == true))
 					?//if the column corresponding to header is categorical:
-						[...new Set(this[header])]//remove the duplicates from the column and assign the resulting list of levels to the corresponding entry in factorLevelDict
+						[...new Set(this.data.map(row=>row[header]))]//remove the duplicates from the column and assign the resulting list of levels to the corresponding entry in factorLevelDict
 					://otherwise
 						[]//assign an empty array to the corresponding entry in factorLevelDict
 				]
 			)
 		)
+	}
+	
+	clone(){//return an object identical to the current DataFrame
+		var newDataFrame = new DataFrame(this.headerRow,this.dataRows)
+		newDataFrame.factorLevelDict = this.factorLevelDict
+		this.headerRow.forEach(
+			header => {
+				if (this.forceCategoricalDict[header] == true){
+					newDataFrame.forceCategorical(header)
+				}
+			}
+		)
+		return newDataFrame
+	}
+	
+	toCsv(sep=","){//return the DataFrame as CSV string
+		return [this.headerRow,...this.dataRows].map(row=>row.join(sep)).join("\n")
 	}
 	
 	head(n=5){//display a table (in the console) of the header row and the first five rows of the table
@@ -2312,25 +2322,6 @@ class DataFrame {
 		}
 	}
 	
-	levels(header){
-		if (this.headerRow.includes(header)){
-			const columnType =  this.headerTypeDict[header]
-			if (columnType == "categorical"){
-				return this.factorLevelDict[header]
-			}
-			else if(columnType=="continuous"){
-				throw new DataFrameError(`cannot obtain the levels of the continuous variable "${header}"
-				Hint: you can coerce this variable to categorical by using the DataFrame.forceCategorical() method`)
-			}
-			else{//in case any types beyond continuous and categorical are ever added or if headerTypeDict is manually mutated incorrectly
-				throw new DataFrameError(`cannot obtain the levels of the ${columnType} variable "${header}"`)
-			}
-		}
-		else{
-			throw new DataFrameError(`this DataFrame has no column with the header "${header}"`)
-		}
-	}
-	
 	subsetRows(conditionFunction){//returns new DataFrame
 		//conditionFunction example: row => row["id"]=="1"
 		return new DataFrame(this.headerRow,this.data.filter(conditionFunction).map(row=>Object.values(row)))
@@ -2342,12 +2333,22 @@ class DataFrame {
 		const subsetHeaderRow = this.headerRow.filter((x,i) => includeIndices[i])
 		const subsetDataColumns = this.dataColumns.filter((x,i) => includeIndices[i])
 		const subsetDataRows = transpose(subsetDataColumns)
-		return new DataFrame()
+		return new DataFrame(subsetHeaderRow,subsetDataRows)
 	}
 	
 	splitByFactor(header,removeFactorFromSubset = false){//returns array of new DataFrames
-		const factorLevels = this.levels(header)//the levels() method includes checks to ensure the header is valid and the corresponding column type is categorical
-		return factorLevels.map(level => this.subsetRows(row=>row[header]==level))
+		if (this.headerRow.includes(header)){	
+			if (this.headerTypeDict[header] == "categorical"){
+				var levels = this.factorLevelDict[header]
+				return levels.map(level => this.subsetRows(row=>row[header]==level))
+			}
+			else{
+				throw new DataFrameError(`cannot split a DataFrame based on the continuous variable "${header}"`)
+			}
+		}
+		else{
+			throw new DataFrameError(`this DataFrame has no column with the header "${header}"`)
+		}
 	}
 	
 	//for compatibility with functions that were written for old DataFrame class
@@ -2462,7 +2463,7 @@ class DataFrame {
 			throw new DataFrameError(`cannot plot the ${yColumnType} variable "${yColumnHeader}" against the ${xColumnType} variable "${xColumnHeader}"`)
 		}
 	}
-		
+	
 }
 
 csvToDataFrame = function(csvRawText, csvContainsHeaderRow = true, columnHeaders = null,sep = ","){//columnHeaders : array of strings with length equal to the number of columns
