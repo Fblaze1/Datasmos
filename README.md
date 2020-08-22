@@ -16,18 +16,13 @@ A script for performing data analysis and visualisation in the desmos online gra
     -   [Import data from a CSV](#import-data-from-a-csv)
     -   [Convert a CSV string to a DataFrame and override the original column headers](#convert-a-csv-string-to-a-dataframe-and-override-the-original-column-headers)
     -   [Create a DataFrame from scratch](#create-a-dataframe-from-scratch)
-    -   [Display a random sample of a DataFrame in the
-        console](#display-a-random-sample-of-a-dataframe-in-the-console)
-    -   [Export a DataFrame to CSV or
-        TSV](#export-a-dataframe-to-csv-or-tsv)
--   [Statistical Analysis and Data
-    Visualisation](#statistical-analysis-and-data-visualisation)
+    -   [Display a random sample of a DataFrame in the console](#display-a-random-sample-of-a-dataframe-in-the-console)
+    -   [Export a DataFrame to CSV or TSV](#export-a-dataframe-to-csv-or-tsv)
+-   [Statistical Analysis and Data Visualisation](#statistical-analysis-and-data-visualisation)
     -   [Make a scatterplot](#make-a-scatterplot)
     -   [Make a barchart](#make-a-barchart)
-    -   [Perform an Analysis of
-        Variance](#perform-an-analysis-of-variance)
-    -   [Make a scatterplot with a line of best
-        fit](#make-a-scatterplot-with-a-line-of-best-fit)
+    -   [Perform an Analysis of Variance](#perform-an-analysis-of-variance)
+    -   [Make a scatterplot with a line of best fit](#make-a-scatterplot-with-a-line-of-best-fit)
 -   [DataFrame properties](#dataframe-properties)
     -   [`size`](#size)
     -   [`headerRow`](#headerrow)
