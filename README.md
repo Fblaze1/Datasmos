@@ -186,7 +186,38 @@ The output of this function removes the quotes around strings so values of `1` a
 
 ### Make a scatterplot
 
-`scatterplot()`
+`scatterplot(id,xColumnHeader,yColumnHeader,lines=false,points=true)`
+
+Scatterplots can easily be implemented in desmos just by creating a table of the x and y values of each point you want to plot, which is exactly what the `scatterplot` method does. 
+
+```javascript
+irisDf.scatterplot("scatter1","petal length","sepal length")
+```
+Result:
+
+![alt text](https://github.com/Fblaze1/Datasmos/blob/master/datasmos%20scatterplot%20example.png "scatterplot example")
+
+The `lines` optional argument is `false` by default and specifies whether to join up the points with a line. This is useful for time series data but otherwise, well, see for yourself:
+
+```javascript
+irisDf.scatterplot("scatter1","petal length","sepal length",lines = true)
+```
+
+Result:
+
+![alt text](https://github.com/Fblaze1/Datasmos/blob/master/datasmos%20scatterplot%20lines%3Dtrue%20example.png "scatterplot lines = true example")
+
+The `points` optional argument is `true` by default and specifies whether to show the points or not. If `lines` and `points` are both set to `false`, this will end up not plotting anything, but if `lines` is true and `points` is false, the lines connecting the points will be plotted but not the points themselves:
+
+```javascript
+irisDf.scatterplot("scatter1","petal length","sepal length",lines = true,points = false)
+```
+
+Result:
+
+![alt text](https://github.com/Fblaze1/Datasmos/blob/master/datasmos%20scatterplot%20lines%3Dtrue%20points%3Dfalse%20example.png "scatterplot lines = true, points = false example")
+
+Both the `points` and `lines` optional arguments directly map to settings in desmos that you can change manually once the scatterplot has been created(click [this link](https://www.youtube.com/watch?v=TgYaBC_XUd0&feature=youtu.be&t=32) to see a YouTube video demonstrating how).
 
 ### Make a barchart
 
