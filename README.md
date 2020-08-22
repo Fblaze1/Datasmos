@@ -383,9 +383,9 @@ df1.head(3)
 
 ### Make a copy of a DataFrame
 
-`clone`
+The `clone` method returns a new DataFrame that is identical to the current one, including information about whether `forceCategorical` has been called on any of the columns.
 
-If you want to `merge` two DataFrames but retain the originals, you can use `clone`:
+You can use `clone` if you want to `merge` two DataFrames but retain the originals:
 ```javascript
 df1Clone = df1.clone()
 merged = df1Clone.merge(df2)
