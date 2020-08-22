@@ -74,11 +74,11 @@ Another important concept in datasmos is `id`. Every datasmos function that crea
 
 ### `plot` and `splot` 
 
-`plot` is a function that takes the arguments `id`, `xColumnHeader` and `yColumnHeader` and attempts to plot the data in the column corresponding to `yColumnHeader` against the data in the column corresponding to `xColumnHeader`. It'll determine appropriate plot type based on the [data types](#Data-types) of each column. If there are no plots compatible with the types of the data, it will throw an error. 
+`plot` is a function that takes the arguments `id`, `xColumnHeader` and `yColumnHeader` and attempts to plot the data in the column corresponding to `yColumnHeader` against the data in the column corresponding to `xColumnHeader`. It determines the appropriate plot type based on the [data types](#Data-types) of each column. If there are no plots compatible with the types of the data, it will throw an error. 
 
 `splot` is like `plot` except in addition to plotting the data it is given, it will also conduct an appropriate statistical test (the s in `splot` is for statistics).
 
-These functions are the most general in datasmos and are useful shortcuts, but they don't give you the fine control that calling specific plot/analysis functions would. For example, the `barchart` function, which these functions both use to generate barcharts if they deem that the appropriate plot type, takes the optional parameters like `barColours` which lets you specify the fill colour of each bar. If you already know you want to plot a barchart and want to tweak it using these optional parameters, use the `barchart` function, not `plot`. That said, there are some features of `splot` that don't make sense as standalone functions, namely the linear regression performed when to `"continuous"` variables are plotted against each other with `splot`, so there are cases in which there is no alternative to `splot`.
+These functions are the most general in datasmos. They can be useful shortcuts, but they don't give you the fine control that calling specific plot/analysis functions would. For example, the `barchart` function, which these functions both use to generate barcharts if they deem that the appropriate plot type, takes the optional parameters like `barColours` which lets you specify the fill colour of each bar. If you already know you want to plot a barchart and want to tweak it using these optional parameters, use the `barchart` function, not `plot`. That said, there are some features of `splot` that don't make sense as standalone functions, namely the linear regression performed when to `"continuous"` variables are plotted against each other with `splot`, so there are cases in which there is no alternative to `splot`.
 
 ### CSV and TSV
 
