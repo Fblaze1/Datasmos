@@ -14,11 +14,8 @@ A script for performing data analysis and visualisation in the desmos online gra
     -   [CSV and TSV](#csv-and-tsv)
 -   [General Usage](#general-usage)
     -   [Import data from a CSV](#import-data-from-a-csv)
-    -   [Convert a CSV string to a DataFrame and override the
-        original column
-        headers](#convert-a-csv-string-to-a-dataframe-and-override-the-original-column-headers)
-    -   [Create a DataFrame from
-        scratch](#create-a-dataframe-from-scratch)
+    -   [Convert a CSV string to a DataFrame and override the original column headers](#convert-a-csv-string-to-a-dataframe-and-override-the-original-column-headers)
+    -   [Create a DataFrame from scratch](#create-a-dataframe-from-scratch)
     -   [Display a random sample of a DataFrame in the
         console](#display-a-random-sample-of-a-dataframe-in-the-console)
     -   [Export a DataFrame to CSV or
@@ -41,24 +38,16 @@ A script for performing data analysis and visualisation in the desmos online gra
     -   [`factorLevelDict`](#factorleveldict)
 -   [Accessing DataFrame Columns](#accessing-dataframe-columns)
 -   [DataFrame Manipulation](#dataframe-manipulation)
-    -   [Make a subset of the DataFrame by applying a condition to
-        its
-        rows](#make-a-subset-of-the-dataframe-by-applying-a-condition-to-its-rows)
-    -   [Make a subset of the DataFrame by applying a condition to
-        its
-        columns](#make-a-subset-of-the-dataframe-by-applying-a-condition-to-its-columns)
-    -   [Convert `"continuous"` data to
-        `"categorical"`](#convert-continuous-data-to-categorical)
-    -   [Drop a column from a
-        DataFrame](#drop-a-column-from-a-dataframe)
+    -   [Make a subset of the DataFrame by applying a condition to its rows](#make-a-subset-of-the-dataframe-by-applying-a-condition-to-its-rows)
+    -   [Make a subset of the DataFrame by applying a condition to its columns](#make-a-subset-of-the-dataframe-by-applying-a-condition-to-its-columns)
+    -   [Convert `"continuous"` data to `"categorical"`](#convert-continuous-data-to-categorical)
+    -   [Drop a column from a DataFrame](#drop-a-column-from-a-dataframe)
     -   [Rename a column](#rename-a-column)
     -   [Merge two DataFrames](#merge-two-dataframes)
     -   [Make a copy of a DataFrame](#make-a-copy-of-a-dataframe)
-    -   [Split a DataFrame based on a categorical
-        variable](#split-a-dataframe-based-on-a-categorical-variable)
+    -   [Split a DataFrame based on a categorical variable](#split-a-dataframe-based-on-a-categorical-variable)
     -   [Add a row to a DataFrame](#add-a-row-to-a-dataframe)
--   [Passing multiple `header` arguments to DataFrame
-    methods](#passing-multiple-header-arguments-to-dataframe-methods)
+-   [Passing multiple `header` arguments to DataFrame methods](#passing-multiple-header-arguments-to-dataframe-methods)
 ## Introduction
 
 The two main things this datasmos does are:
