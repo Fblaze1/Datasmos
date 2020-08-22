@@ -57,7 +57,9 @@ Datasmos is intended to complement the [existing statistical features](https://s
 
 ### DataFrames
 
-The DataFrame is the fundamental object in datasmos and all the useful functions in datasmos are either methods associated with DataFrames or functions for turning data into DataFrames. DataFrames are an object that can be thought of as a spreadsheet, containing data organised into rows and columns and a header row at the top specifying the unique header of each column.
+The DataFrame is the fundamental object in datasmos; it can be thought of as a spreadsheet, containing data organised into rows and columns and a header row at the top specifying the unique header of each column. 
+
+All the useful functions in datasmos are either methods associated with DataFrames or functions for turning data into DataFrames
 
 ### Data types
 
@@ -65,7 +67,7 @@ In datasmos the data types are `"categorical"` for any data in a `string` that c
 
 ### `id`
 
-Another important concept in datasmos is `id`. `id` is an argument in every datasmos function that creates expressions in desmos. In the example in the [Getting Started](#Getting-Started) section, `plot1` is the `id`. It is used to ensure that variable definitions don't clash with other variables already defined in the desmos calculator by adding a subscript to each variable with the `id`. Expressions created using the same `id` will be assumed to be part of the same plot/analysis and will often be defined in terms of each other. Every `id` should be:
+Another important concept in datasmos is `id`. Every datasmos function that creates desmos expressions takes `id` as an argument. In the example in the [Getting Started](#Getting-Started) section, `plot1` is the `id`. It is used to ensure that variable definitions don't clash with other variables already defined in the desmos calculator by adding a subscript to each variable with the `id`. Expressions created using the same `id` will be assumed to be part of the same plot/analysis and will often be defined in terms of each other. Every `id` should be:
 * unique - don't use the same `id` to create a new scatterplot as the one you just used to make a barchart
 * short - since it's going to be added as a subcript to each variable you don't want it cluttering up your expressions too much
 * composed only of letters and numbers - this means no punctuation and **no spaces**
