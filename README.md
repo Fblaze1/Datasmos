@@ -80,6 +80,20 @@ Another important concept in datasmos is `id`. Every datasmos function that crea
 
 These functions are the most general in datasmos and are useful shortcuts, but they don't give you the fine control that calling specific plot/analysis functions would. For example, the `barchart` function, which these functions both use to generate barcharts if they deem that the appropriate plot type, takes the optional parameters like `barColours` which lets you specify the fill colour of each bar. If you already know you want to plot a barchart and want to tweak it using these optional parameters, use the `barchart` function, not `plot`. That said, there are some features of `splot` that don't make sense as standalone functions, namely the linear regression performed when to `"continuous"` variables are plotted against each other with `splot`, so there are cases in which there is no alternative to `splot`.
 
+### CSV and TSV
+
+CSV stands for Comma Separated Values and is a commonly used format for storing data. A CSV file is a text file where rows are separated by newline characters and values within rows are separated by commas.
+
+TSV stands for Tab Separated Values and is a format similar to CSV except values within rows are separated by tab characters instead of commas.
+
+When you copy and paste spreadsheets and tables, your clipboard stores the data in TSV format. For example, try copying the text from the following table and pasting it into a text editor:
+
+Column 1 | Column 2 | Column 3
+---------|----------|---------
+here     |    is    |   some
+text     |    in    |    a
+table    |    42    | 3.14159
+
 ## General Usage
 
 In this section we will use the [iris dataset](#iris.csv) (which you can read about [here](#https://en.wikipedia.org/wiki/Iris_flower_data_set)) in our examples, with `irisCsv` as the variable name for the CSV text and `irisDf` as the variable name for the DataFrame generated from the data. Some optional arguments will be specified unnecessarily just to let you know they're there. Please note that despite the fact that these arguments will be passed as `argumentName = argumentValue`, this is just to tell you what each argument is called, but isn't actually passing a [named argument](https://en.wikipedia.org/wiki/Named_parameter) since JavaScript doesn't support that yet.
