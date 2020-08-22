@@ -417,15 +417,15 @@ merged = df1Clone.merge(df2)
 The `splitByFactor` method returns an array of DataFrames created by creating subsets of the DataFrame's rows whose values in a particular column are all the same.
 The column used to split the DataFrame must be factor, meaning it must be `"categorical"` so that it will have a defined set of `levels` that can be used to split the DataFrame.
 
-In the below example, `splitByFactor` is used to create 
+In the example below, `splitByFactor` is used to create a scatterplot from the iris dataset of `"sepal length"` against `"petal length"` where the points are coloured by `species` and a different trendline is fitted to each cluster using linear regression.
 ```javascript
 irisDfsBySpecies = irisDf.splitByFactor("species")
 irisDfsBySpecies.forEach(df=>df.randomHead())
 irisDfsBySpecies.forEach((df,i)=>df.splot(`species${irisDf.factorLevelDict["species"][i]}`,"petal length","sepal length"))
 ```
 Result:
-TODO: add image once this branch is merged with master
-![alt text]()
+
+![alt text](https://github.com/Fblaze1/Datasmos/blob/master/datasmos%20splitByFactor%20scatterplot%20example.png "splitByFactor scatterplot example")
 
 ### Add a row to a DataFrame
 
