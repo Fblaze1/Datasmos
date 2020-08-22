@@ -14,9 +14,7 @@ A script for performing data analysis and visualisation in the desmos online gra
     -   [CSV and TSV](#csv-and-tsv)
 -   [General Usage](#general-usage)
     -   [Import data from a CSV](#import-data-from-a-csv)
-    -   [Convert a CSV string to a DataFrame and override the
-        original column
-        headers](#convert-a-csv-string-to-a-dataframe-and-override-the-original-column-headers)
+    -   [Convert a CSV string to a DataFrame and override the original column headers](#convert-a-csv-string-to-a-dataframe-and-override-the-original-column-headers)
     -   [Create a DataFrame from
         scratch](#create-a-dataframe-from-scratch)
     -   [Display a random sample of a DataFrame in the
