@@ -296,7 +296,7 @@ irisDf.randomHead()
 irisDfSetosa = irisDf.subsetRows(row=>row["species"]=="setosa")//returns a new DataFrame containing only the rows whose "species" attribute is "setosa"
 irisDfSetosa.randomHead()
 ```
-`subsetRows` takes in a condition function as its only argument - the function ahould return a Boolean value (`true` or `false`) for each row to determine whether to include that row in the subset
+`subsetRows` takes in a condition function as its only argument - the function should return a Boolean value (`true` or `false`) for each row to determine whether to include that row in the subset
 
 ### Make a subset of the DataFrame by applying a condition to its columns
 
@@ -304,7 +304,7 @@ irisDfSetosa.randomHead()
 irisDfNumbersOnly = irisDf.subsetColumns(col=>col.every(x=>!isNaN(x)))//returns a new DataFrame containing only the columns whose values can all be coerced to numbers
 irisDf.randomHead()
 ```
-`subsetColumns` takes in a condition function as its only argument - the function ahould return a Boolean value (`true` or `false`) for each column to determine whether to include that column in the subset
+`subsetColumns` takes in a condition function as its only argument - the function should return a Boolean value (`true` or `false`) for each column to determine whether to include that column in the subset
 
 ### Convert `"continuous"` data to `"categorical"`
 
