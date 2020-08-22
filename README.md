@@ -394,14 +394,20 @@ merged = df1Clone.merge(df2)
 
 ### Split a DataFrame based on a categorical variable
 
-`splitByFactor(header)`
+`splitByFactor(header,removeFactorFromSubset = false)`
 
-Useful for creating plots 
+The `splitByFactor` method returns an array of DataFrames created by creating subsets of the DataFrame's rows whose values in a particular column are all the same.
+The column used to split the DataFrame must be factor, meaning it must be `"categorical"` so that it will have a defined set of `levels` that can be used to split the DataFrame.
+
+In the below example, `splitByFactor` is used to create 
 ```javascript
 irisDfsBySpecies = irisDf.splitByFactor("species")
 irisDfsBySpecies.forEach(df=>df.randomHead())
 irisDfsBySpecies.forEach((df,i)=>df.splot(`species${irisDf.factorLevelDict["species"][i]}`,"petal length","sepal length"))
 ```
+Result:
+TODO: add image once this branch is merged with master
+![alt text]()
 
 ### Add a row to a DataFrame
 
