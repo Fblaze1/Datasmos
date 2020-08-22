@@ -6,11 +6,11 @@ A script for performing data analysis and visualisation in the desmos online gra
 
 * [Getting Started](#getting-started)
 * [Introduction and Concepts](#introduction-and-concepts)
-* [General usage + Examples](#general-usage--examples)
-* [Statistical analysis and data visualisation](#statistical-analysis-and-data-visualisation)
+* [General Usage](#general-usage)
+* [Statistical Analysis and Data Visualisation](#statistical-analysis-and-data-visualisation)
 * [DataFrame properties](#dataframe-properties)
-* [Accessing DataFrame columns](#accessing-dataframe-columns)
-* [DataFrame manipulation](#dataframe-manipulation)
+* [Accessing DataFrame Columns](#accessing-dataframe-columns)
+* [DataFrame Manipulation](#dataframe-manipulation)
 
 ## Getting Started
 
@@ -76,7 +76,7 @@ Another important concept in datasmos is `id`. `id` is an argument in every data
 
 These functions are the most general in datasmos and are useful shortcuts, but they don't give you the fine control that calling specific plot/analysis functions would. For example, the `barchart` function, which these functions both use to generate barcharts if they deem that the appropriate plot type, takes the optional parameters like `barColours` which lets you specify the fill colour of each bar. If you already know you want to plot a barchart and want to tweak it using these optional parameters, use the `barchart` function, not `plot`. That said, there are some features of `splot` that don't make sense as standalone functions, namely the linear regression performed when to `"continuous"` variables are plotted against each other with `splot`, so there are cases in which there is no alternative to `splot`.
 
-## General Usage + Examples
+## General Usage
 
 In this section we will use the [iris dataset](#iris.csv) (which you can read about [here](#https://en.wikipedia.org/wiki/Iris_flower_data_set)) in our examples, with `irisCsv` as the variable name for the CSV text and `irisDf` as the variable name for the DataFrame generated from the data. Some optional arguments will be specified unnecessarily just to let you know they're there. Please note that despite the fact that these arguments will be passed as `argumentName = argumentValue`, this is just to tell you what each argument is called, but isn't actually passing a [named argument](https://en.wikipedia.org/wiki/Named_parameter) since JavaScript doesn't support that yet.
 
@@ -134,7 +134,7 @@ Both CSV strings and TSV strings can be pasted into desmos to create a table rep
 
 The output of this function removes the quotes around strings so values of `1` and `"1"` will be represented identically
 
-## Statistical analysis and data visualisation
+## Statistical Analysis and Data Visualisation
 
 ### Make a scatterplot
 
@@ -238,7 +238,7 @@ irisDf.factorLevelDict["petal length"]
 //output: []
 ```
 
-## Accessing DataFrame columns
+## Accessing DataFrame Columns
 
 DataFrame columns can be accessed in the same way as properties:
 ```javascript
@@ -288,7 +288,7 @@ irisDf["average length"] = arrayAvg(...irisDf[["petal length","sepal length"]])
 irisDf.randomHead()
 ```
 
-## DataFrame manipulation
+## DataFrame Manipulation
 
 ### Make a subset of the DataFrame by applying a condition to its rows
 
