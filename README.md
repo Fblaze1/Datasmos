@@ -91,6 +91,22 @@ irisDf = csvToDataFrame(irisCsv,csvContainsHeaderRow = true, columnHeaders = ["s
 ```
 If `csvContainsHeaderRow` is `true`, the first row of the CSV string is separated from the rest of the data and is either used as the header row for the DataFrame or discarded if overridden by `columnHeaders`. `sep` specifies the separator and, if set to `\t`, allows this function to be used to read TSV text instead of CSV text.
 
+### Create a DataFrame from scratch
+
+You can create a DataFrame without using CSV text with the following syntax: `df = new DataFrame(columnHeaders,dataRows2dArray)`
+```javascript
+newDf = new DataFrame(
+    ["col1","col2","col3"]
+    ,
+    [
+        ["1","cat","0.3"],
+        ["2","car","0.75"],
+        ["15","cap","0.12"]
+    ]
+)
+newDf.head(3)
+```
+
 ### Display a random sample of a DataFrame in the console
 
 In the [Getting Started](#getting-started) section we saw an example of `head(n)` being used to sample the first `n` rows from the DataFrame. If you want to see a more representative sample of your DataFrame, use `randomHead(n)` to generate `n` rows randomly selected from the entire DataFrame:
@@ -292,15 +308,41 @@ irisDf.randomHead()
 
 ### Convert `"continuous"` data to `"categorical"`
 
+If you have a column that contains numerical values but you want them to be treated as `"categorical"`, not `"continuous"`, you can use the `forceCategorical` method to do just that. To undo this action, use `undoForceCateogrical`.
+
 `df.forceCategorical(header)`
 `df.undoForceCategorical(header)`
 
 ### Drop a column from a DataFrame
 
+To delete/drop a column from a DataFrame, use the `drop` method. This can't be undone.
+
 `df.drop(header)`
-`df.drop(arrayOfHeaders)`
+
+If you want to drop multiple columns at a time, you can pass an array of column headers to the function instead of just one.
+
+```javascript
+
+df = csvToDataFrame(String.raw`col1,col2,col3,col4,col5
+1,cat,0.3,55,6
+2,car,0.75,66,7
+15,cap,0.12,77,8`)
+
+df.head(3)
+
+df.drop("col2")
+
+df.head(3)
+
+df.drop(["col1","col3","col5"])
+
+df.head(3)
+
+```
 
 ### Rename a column
+
+If you want to rename a column, maybe because you're about to merge two DataFrames and want to avoid column header clashes, you can use the `rename` method.
 
 `df.rename(oldHeader,newHeader)`
 
@@ -308,9 +350,36 @@ See the [Getting Started](#getting-started) section for an example
 
 ### Merge two DataFrames
 
+The `merge` method adds the columns of one DataFrame onto another, while preserving information about whether `forceCategorical` has been called on any of the columns. For two DataFrames to be merged, they must both have the same number of rows.
+
 `df1.merge(df2)`
 
-Alters `df1` but not `df1`. See below for how to create a merged DataFrame without altering the original DataFrames.
+```javascript
+df1 = new DataFrame(
+    ["col1","col2","col3"]
+    ,
+    [
+        ["1","cat","0.3"],
+        ["2","car","0.75"],
+        ["15","cap","0.12"]
+    ]
+)
+
+df2 = new DataFrame(
+    ["col4","col5"]
+    ,
+    [
+        ["55","6"],
+        ["66","7"],
+        ["77","8"]
+    ]
+)
+
+df1.merge(df2)
+df1.head(3)
+```
+
+`merge` alters `df1` but not `df1`. See below for how to create a merged DataFrame without altering the original DataFrames.
 
 ### Make a copy of a DataFrame
 
@@ -352,3 +421,12 @@ irisDf.head()//demonstrates the newly added row at the top
 console.table(irisDf.data.slice(147,152))//demonstrates the newly added row at the bottom
 irisDf.species.levels //output: ["wattii", "setosa", "versicolor", "virginica"]
 ```
+
+## Passing multiple `header` arguments to DataFrame methods
+
+As demonstrated with `drop`, when a DataFrame method takes `header` as its only argument, you can pass it an array of headers instead and the method will be called on each header in that array. 
+
+The methods this applies to currently are: 
+* `drop`
+* `forceCategorical`
+* `undoForceCategorical`
