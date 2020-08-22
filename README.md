@@ -217,7 +217,7 @@ Result:
 
 ![alt text](https://github.com/Fblaze1/Datasmos/blob/master/datasmos%20scatterplot%20lines%3Dtrue%20points%3Dfalse%20example.png "scatterplot lines = true, points = false example")
 
-Both the `points` and `lines` optional arguments directly map to settings in desmos that you can change manually once the scatterplot has been created(click [this link](https://www.youtube.com/watch?v=TgYaBC_XUd0&feature=youtu.be&t=32) to see a YouTube video demonstrating how).
+Both the `points` and `lines` optional arguments directly correspond to settings in desmos that you can change manually once the scatterplot has been created(click [this link](https://www.youtube.com/watch?v=TgYaBC_XUd0&feature=youtu.be&t=32) to see a YouTube video demonstrating how).
 
 ### Make a barchart
 
