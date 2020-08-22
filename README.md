@@ -8,6 +8,8 @@ A script for performing data analysis and visualisation in the desmos online gra
 * [Introduction and Concepts](#introduction-and-concepts)
 * [General usage + Examples](#general-usage--examples)
 * [Statistical analysis and data visualisation](#statistical-analysis-and-data-visualisation)
+* [DataFrame properties](#dataframe-properties)
+* [Accessing DataFrame columns](#accessing-dataframe-columns)
 * [DataFrame manipulation](#dataframe-manipulation)
 
 ## Getting Started
@@ -143,34 +145,56 @@ You can access a DataFrame's properties like this `irisDf.size` or like this `ir
 
 ### `size`
 
-An array containing the dimensions of the array.
-The first item in the array is the number of rows and the second is the number of columns.
+`size` is an array containing information about the dimensions of the DataFrame.
 
-### `data`
+The first item in `size` is the number of rows in the DataFrame, and the second item is the number of columns.
 
-The data, stored as an array of row objects that contain information about the values in the row and the column header associated with each value.
-Example of a row object from `irisDf`:
 ```javascript
-{"sepal length":"4.4","sepal width":"3.2","petal length":"1.3","petal width":"0.2","species":"setosa"}
+irisDf.size
+//output: [150,5]
 ```
-
-### `dataRows` 
-
-A 2D array containing the data and no information about the column headers associated with the data.
-
-Each row in the 2D array corresponds to a row in the DataFrame
-
-### `dataColumns`
-
-A 2D array containing the data and no information about the column headers associated with the data.
-
-Each row in the 2D array corresponds to a column in the DataFrame
 
 ### `headerRow`
 
-An array containing the headers of each column
+`headerRow` is an array containing the header for each column in the order in which the columns are stored in the DataFrame.
 
-It can be thought of as the header row in a spreadsheet
+It can be thought of as the header row at the top of a spreadsheet.
+
+```javascript
+irisDf.headerRow
+//output: ["sepal length", "sepal width", "petal length", "petal width", "species"]
+```
+
+### `data`
+
+The `data` property contains the data stored in the DataFrame in a [JSON](https://en.wikipedia.org/wiki/JSON) format - an array of row objects containing both the values in that row and the column headers to which each value corresponds.
+
+```javascript
+irisDf.data[42]
+//output: {sepal length: "5.1", sepal width: "3.4", petal length: "1.5", petal width: "0.2", species: "setosa"}
+```
+
+### `dataRows`
+
+`dataRows` is a representation of `data` in which the information about column headers is removed. 
+
+The resulting data structure is a 2D array where each row corresponds to a row in the DataFrame.
+
+```javascript
+irisDf.dataRows[4]
+//output: ["5.0", "3.6", "1.4", "0.2", "setosa"]
+```
+
+### `dataColumns`
+
+`dataColumns` is a representation of `data` in which the information about column headers is removed. 
+
+The resulting data structure is a 2D array where each row corresponds to a row in the DataFrame.
+
+```javascript
+irisDf.dataColumns[4]
+//output: ["setosa","setosa","setosa", ...]
+```
 
 ### `headerTypeDict`
 
@@ -192,10 +216,60 @@ Every column has a corresponding entry in `factorLevelDict` - for `"continuous"`
 
 ```javascript
 irisDf.factorLevelDict["species"]
-//output:  ["setosa", "versicolor", "virginica"]
+//output: ["setosa", "versicolor", "virginica"]
 
 irisDf.factorLevelDict["petal length"]
 //output: []
+```
+
+## Accessing DataFrame columns
+
+DataFrame columns can be accessed in the same way as properties:
+```javascript
+irisDf.species
+//output: ["setosa", "setosa", "setosa", ...]
+
+irisDf["petal length"]
+//output: ["1.4", "1.4", "1.3", ...]
+```
+
+You can get the `levels` of a column as an alternative to looking up that column's entry in `factorLevelDict`:
+```javascript
+irisDf.species.levels
+//output: ["setosa", "versicolor", "virginica"]
+
+irisDf["petal length"].levels
+//output: undefined
+```
+The difference between getting the `levels` property of a column and looking it up in `factorLevelDict` is that for `"continuous"` columns like `petal length`, the `levels` property is `undefined` whereas the corresponding value in `factorLevelDict` is `[]`, an empty array.
+
+You can get the values of multiple columns at a time using an array of column headers:
+```javascript
+irisDf[["petal length","sepal width","species"]]
+output: [["1.4", "1.4", "1.3", ...],["3.5", "3.0", "3.2", ...],["setosa", "setosa", "setosa", ...]]
+```
+
+You can also overwrite the values of an existing column or create a new column using this syntax:
+```javascript
+function arrayAvg(...arrays){
+    return [...arrays[0].keys()].map(//iterate through indices of the first array
+        i =>
+            arrays.map(//get items in each array at index i and coerce them to numbers
+                array => Number(array[i])
+            )
+            .reduce((a,b)=>a+b)//sum all the items at index i
+            /arrays.length//divide by the number of arrays to get the average (arithmetic mean)
+    )
+}
+//create new column with header "avg" that is the average 
+//the ... is JavaScript's "spread syntax" for spreading out the items in an array to pass each one as a separate argument to a function (it has other uses as well)
+irisDf.avg = arrayAvg(...irisDf[["sepal width","sepal length","petal width","petal length"]])
+    .map(x=>x.toString())//convert the numbers to strings
+irisDf.randomHead()
+
+irisDf["average length"] = arrayAvg(...irisDf[["petal length","sepal length"]])
+    .map(x=>x.toString())//convert the numbers to strings
+irisDf.randomHead()
 ```
 
 ## DataFrame manipulation
@@ -249,7 +323,7 @@ merged = df1Clone.merge(df2)
 //df1 and df2 remain unchanged
 ```
 
-### Split a table based on a categorical variable
+### Split a DataFrame based on a categorical variable
 
 `splitByFactor(header)`
 
@@ -260,8 +334,21 @@ irisDfsBySpecies.forEach(df=>df.randomHead())
 irisDfsBySpecies.forEach((df,i)=>df.splot(`species${irisDf.factorLevelDict["species"][i]}`,"petal length","sepal length"))
 ```
 
-### Add a row
+### Add a row to a DataFrame
 
-`addRow`
+You can insert a new row at any `index` in a DataFrame using the `addRow` method.
 
-Can take a list or object as an argument
+The new row can either be an array or values, which must be in the right order, or an object that specifies which column each value belongs to. In that case, the order of the values in the new row object doesn't matter as it will be reordered automatically before being added.
+
+The each value in the new row must match its column's data type, but in the case of `"categorical"` columns the new value doesn't need to be in the current `levels` array for that column - if it is a new, unique value, it will be added to the `factorLevelDict` entry for that column, so there's no need to worry about having to change it beforehand.
+
+The `index` optional argument specifies the position at which to insert the new row. The default value is `-1`, meaning the row will be added to the bottom of the DataFrame. This can be extended by passing `index` a value of `-2` to insert the row at the penultimate position, and so on.
+
+```javascript
+irisDf.data.slice(145,irisDf.data.length)
+irisDf.addRow(["4.7","2.2","3.6","1.1","wattii"],index=0)//adds row to the top
+irisDf.addRow({"species":"wattii","sepal length":"5.9","petal length":"3.9","sepal width":"3.8","petal width":"1.3"})//adds row to the bottom by default
+irisDf.head()//demonstrates the newly added row at the top
+console.table(irisDf.data.slice(147,152))//demonstrates the newly added row at the bottom
+irisDf.species.levels //output: ["wattii", "setosa", "versicolor", "virginica"]
+```
