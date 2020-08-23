@@ -252,7 +252,7 @@ The `barOutlineColours` optional argument lets you specify the colour of the out
 
 Note that `barOutlineColours` will not change the colour of the error bars - they will remain black.
 
-The optional arguments to this method can be supplied in any order using [parameter destructuring](https://javascript.info/destructuring-assignment#smart-function-parameters) and have to be passed using their names. This allows you to choose which optional arguments to specify.
+The optional arguments to this method can be supplied in any order using [parameter destructuring](https://javascript.info/destructuring-assignment#smart-function-parameters) and have to be passed using their names. This allows you to choose which optional arguments to specify. The syntax is `df.barchart(id,xColumnHeader,yColumnHeader,{optionalArgumentName1:optionalArgumentValue1,optionalArgumentName2,optionalArgumentValue2, ...})`
 
 ```javascript
 irisDf.barchart("barchart2","species","petal length",{
