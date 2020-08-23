@@ -234,12 +234,6 @@ Result:
 
 ![alt text](https://github.com/Fblaze1/Datasmos/blob/master/datasmos%20barchart%20example.png "barchart example")
 
-#### Customising a barchart in desmos
-
-This animated GIF below demonstrates how to use all the different customisation options available once you've created the barchart.
-
-![alt text]( "barchart customisation demo GIF")
-
 #### Customising a barchart using optional arguments
 
 The `xTitle` and `yTitle` optional arguments let you override the x-axis and y-axis titles if you don't want them to be the same as `xColumnHeader` and `yColumnHeader` respectively.
@@ -265,6 +259,20 @@ irisDf.barchart("barchart2","species","petal length",{
 Result:
 
 ![alt text](https://github.com/Fblaze1/Datasmos/blob/master/datasmos%20barchart%20set%20barColours%20example.png "barchart set barColours example")
+
+#### Customising a barchart in desmos
+
+Once you have created a barchart, you will see the interactive customisation sliders superimposed over the barchart in desmos. The animated GIFs in this section demonstrate how to customise the barchart using these features. 
+
+Click one of the titles below to expand the section containing the corresponding GIF.
+
+TODO: remove this template from the final version of the README
+<details>
+    <summary>thing you want to do</summary>
+![alt text](link "alt text")
+</details>
+
+
 
 ### Perform an Analysis of Variance
 
