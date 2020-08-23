@@ -1,4 +1,4 @@
-datasmosVersion = "2.2.0"
+datasmosVersion = "2.2.1"
 
 transpose = function(matrix){
 	//https://stackoverflow.com/questions/17428587/transposing-a-2d-array-in-javascript
@@ -246,7 +246,11 @@ generateDataExpressionsCategoricalByContinuous = function(id,levels,xCategorical
 			id: `${id} grouped data summary statistics sum of squares per group list`,
 			folderId: `${id} grouped data summary statistics folder`,
 			color: `#2d70b3`,
-			latex: `S_{SPerGroup${id}}=\\left[S_{umSquares${id}}\\left(y_{data${id}}\\left[x_{data${id}}=l_{${id}}\\left[1\\right]\\right]\\right),S_{umSquares${id}}\\left(y_{data${id}}\\left[x_{data${id}}=l_{${id}}\\left[2\\right]\\right]\\right),S_{umSquares${id}}\\left(y_{data${id}}\\left[x_{data${id}}=l_{${id}}\\left[3\\right]\\right]\\right)\\right]`
+			latex: `S_{SPerGroup${id}}=\\left[`+
+					levels.map((level,i)=>
+						`S_{umSquares${id}}\\left(y_{data${id}}\\left[x_{data${id}}=l_{${id}}\\left[${1+Number(i)}\\right]\\right]\\right)`
+					).join(",")
+				+`\\right]`
 		},
 		{
 			type: `text`,
@@ -1983,6 +1987,7 @@ class DataFrame {
 							)
 						)
 					)
+					this.updateFactorLevelDict()
 				}
 				else{
 					throw new DataFrameError(`new row object must have the same types (categoric/continuous) as each corresponding column`)
