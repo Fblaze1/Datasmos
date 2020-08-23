@@ -129,7 +129,7 @@ table    |    42    | 3.14159
 
 ## General Usage
 
-In this section we will use the [iris dataset](#iris.csv) (which you can read about [here](#https://en.wikipedia.org/wiki/Iris_flower_data_set)) in our examples, with `irisCsv` as the variable name for the CSV text and `irisDf` as the variable name for the DataFrame generated from the data. Some optional arguments will be specified unnecessarily just to let you know they're there. Please note that despite the fact that these arguments will be passed as `argumentName = argumentValue`, this is just to tell you what each argument is called, but isn't actually passing a [named argument](https://en.wikipedia.org/wiki/Named_parameter) since JavaScript doesn't support that yet.
+In this section we will use the [iris dataset](#iris.csv) (which you can read about [here](https://en.wikipedia.org/wiki/Iris_flower_data_set)) in our examples, with `irisCsv` as the variable name for the CSV text and `irisDf` as the variable name for the DataFrame generated from the data. Some optional arguments will be specified unnecessarily just to let you know they're there. Please note that despite the fact that these arguments will be passed as `argumentName = argumentValue`, this is just to tell you what each argument is called, but isn't actually passing a [named argument](https://en.wikipedia.org/wiki/Named_parameter) since JavaScript doesn't support that yet.
 
 ### Import data from a CSV
 
@@ -280,18 +280,46 @@ Inside the barchart setup folder are some more customisation sliders. The functi
 
 ### Perform an Analysis of Variance
 
-`ANOVA()`
-`splot()`
+If you want to test for a significant difference in a `"continuous"` variable among groups split based on a `"categorical"` variable, you can conduct a [one-way Analysis of Variance (ANOVA)](https://en.wikipedia.org/wiki/One-way_analysis_of_variance).
+
+In datasmos, the `ANOVA` method does this for you. It implements all the maths in desmos, allowing you to look under the hood and see all the calculations that are going on. 
+
+The `ANOVA` and `barchart` methods are not dependent on each other to work, but if they are called with the same arguments, including the same `id`, the expressions they generate can recognise each other and work together to add a label to your barchart with the F statistic and p value yielded from the ANOVA.
+
+In fact, this is what the `splot` method does when used to plot a `"continuous"` column against a `"categorical"` colummn. It first calls the `barchart` method with the arguments that you pass it, then calls the `ANOVA` method with those same arguments. The advantage to doing this manually is that you can [pass optional arguments to the `barchart` method](#customising-a-barchart-using-optional-arguments)  to customise the colours and axis titles of the resulting barchart.
+
+```javascript
+irisDf.ANOVA("fusion","species","sepal length")
+```
+Result:
+
+![alt text](https://github.com/Fblaze1/Datasmos/blob/master/datasmos%20anova%20barchart%20fusion%20example%20part%201.png "ANOVA barchart fusion example part 1")
+
+```javascript
+irisDf.barchart("fusion","species","sepal length",{barOutlineColours:["#AA0000","#00AA00","#0000AA"]})
+```
+
+Result (after some [customisation in desmos](#customising-a-barchart-in-desmos)):
+
+![alt text](https://github.com/Fblaze1/Datasmos/blob/master/datasmos%20anova%20barchart%20fusion%20example%20part%202.png "ANOVA barchart fusion example part 2")
 
 ### Make a scatterplot with a line of best fit
 
-`splot()`
+The `splot` method, when used to plot one `"continuous"` column against another, also produces a trendline/line of best fit using a linear regression. The [desmos regression feature](https://support.desmos.com/hc/en-us/articles/202532159-Regressions) supports general regressions, not just linear, so you can manually change the formula to fit nonlinear models to your data. 
+The regression will provide an [appropriate statistic](https://support.desmos.com/hc/en-us/articles/202529129-What-is-RMSE-) to quantify how well the model fits the data. 
+
+```javascript
+irisDf.splot("123","petal length","sepal width")
+```
+Result:
+
+![alt text](https://github.com/Fblaze1/Datasmos/blob/master/datasmos%20regression%20example.png "")
 
 ### Export your graph as a PNG or SVG image file
 
 Desmos has a built in feature that allows you to download an image of your graph as a PNG or SVG image.
 
-See [this Wikipedia article](#https://en.wikipedia.org/wiki/Scalable_Vector_Graphics#Overview) for an overview of the difference between PNG and SVG images. Essentially, SVG images are stored as collections of shapes, not pixels, so they look good no matter how much you zoom in.
+See [this Wikipedia article](https://en.wikipedia.org/wiki/Scalable_Vector_Graphics#Overview) for an overview of the difference between PNG and SVG images. Essentially, SVG images are stored as collections of shapes, not pixels, so they look good no matter how much you zoom in.
 
 The animated GIF below demonstrates how to export a graph as PNG and SVG.
 
