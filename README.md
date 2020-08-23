@@ -85,7 +85,7 @@ This will create an interactive barchart that you can customise by dragging the 
 
 To hide the customisation options, [hide the folder](https://support.desmos.com/hc/en-us/articles/204980525-Folders) titled "[plot1] customisation"
 
-![alt text](https://github.com/Fblaze1/Datasmos/blob/master/datasmos%20getting%20started%20demo.gif "Getting Started Demo GIF")
+![alt text](https://github.com/Fblaze1/Datasmos/blob/master/images/datasmos%20getting%20started%20demo.gif "Getting Started Demo GIF")
 
 ## Concepts
 
@@ -204,7 +204,7 @@ irisDf.scatterplot("scatter1","petal length","sepal length")
 ```
 Result:
 
-![alt text](https://github.com/Fblaze1/Datasmos/blob/master/datasmos%20scatterplot%20example.png "scatterplot example")
+![alt text](https://github.com/Fblaze1/Datasmos/blob/master/images/datasmos%20scatterplot%20example.png "scatterplot example")
 
 The `lines` optional argument is `false` by default and specifies whether to join up the points with a line. This is useful for time series data but otherwise, well, see for yourself:
 
@@ -214,7 +214,7 @@ irisDf.scatterplot("scatter1","petal length","sepal length",lines = true)
 
 Result:
 
-![alt text](https://github.com/Fblaze1/Datasmos/blob/master/datasmos%20scatterplot%20lines%3Dtrue%20example.png "scatterplot lines = true example")
+![alt text](https://github.com/Fblaze1/Datasmos/blob/master/images/datasmos%20scatterplot%20lines%3Dtrue%20example.png "scatterplot lines = true example")
 
 The `points` optional argument is `true` by default and specifies whether to show the points or not. If `lines` and `points` are both set to `false`, this will end up not plotting anything, but if `lines` is true and `points` is false, the lines connecting the points will be plotted but not the points themselves:
 
@@ -224,7 +224,7 @@ irisDf.scatterplot("scatter1","petal length","sepal length",lines = true,points 
 
 Result:
 
-![alt text](https://github.com/Fblaze1/Datasmos/blob/master/datasmos%20scatterplot%20lines%3Dtrue%20points%3Dfalse%20example.png "scatterplot lines = true, points = false example")
+![alt text](https://github.com/Fblaze1/Datasmos/blob/master/images/datasmos%20scatterplot%20lines%3Dtrue%20points%3Dfalse%20example.png "scatterplot lines = true, points = false example")
 
 Both the `points` and `lines` optional arguments directly correspond to settings in desmos that you can change manually once the scatterplot has been created(click [this link](https://www.youtube.com/watch?v=TgYaBC_XUd0&feature=youtu.be&t=32) to see a YouTube video demonstrating how).
 
@@ -239,7 +239,7 @@ irisDf.barchart("barchart1","species","sepal width")
 ```
 Result:
 
-![alt text](https://github.com/Fblaze1/Datasmos/blob/master/datasmos%20barchart%20example.png "barchart example")
+![alt text](https://github.com/Fblaze1/Datasmos/blob/master/images/datasmos%20barchart%20example.png "barchart example")
 
 #### Customising a barchart using optional arguments
 
@@ -265,7 +265,7 @@ irisDf.barchart("barchart2","species","petal length",{
 ```
 Result:
 
-![alt text](https://github.com/Fblaze1/Datasmos/blob/master/datasmos%20barchart%20set%20barColours%20example.png "barchart set barColours example")
+![alt text](https://github.com/Fblaze1/Datasmos/blob/master/images/datasmos%20barchart%20set%20barColours%20example.png "barchart set barColours example")
 
 #### Customising a barchart in desmos
 
@@ -297,7 +297,7 @@ irisDf.ANOVA("fusion","species","sepal length")
 ```
 Result:
 
-![alt text](https://github.com/Fblaze1/Datasmos/blob/master/datasmos%20anova%20barchart%20fusion%20example%20part%201.png "ANOVA barchart fusion example part 1")
+![alt text](https://github.com/Fblaze1/Datasmos/blob/master/images/datasmos%20anova%20barchart%20fusion%20example%20part%201.png "ANOVA barchart fusion example part 1")
 
 ```javascript
 irisDf.barchart("fusion","species","sepal length",{barOutlineColours:["#AA0000","#00AA00","#0000AA"]})
@@ -305,7 +305,7 @@ irisDf.barchart("fusion","species","sepal length",{barOutlineColours:["#AA0000",
 
 Result (after some [customisation in desmos](#customising-a-barchart-in-desmos)):
 
-![alt text](https://github.com/Fblaze1/Datasmos/blob/master/datasmos%20anova%20barchart%20fusion%20example%20part%202.png "ANOVA barchart fusion example part 2")
+![alt text](https://github.com/Fblaze1/Datasmos/blob/master/images/datasmos%20anova%20barchart%20fusion%20example%20part%202.png "ANOVA barchart fusion example part 2")
 
 ### Make a scatterplot with a line of best fit
 
@@ -317,7 +317,7 @@ irisDf.splot("123","petal length","sepal width")
 ```
 Result:
 
-![alt text](https://github.com/Fblaze1/Datasmos/blob/master/datasmos%20regression%20example.png "")
+![alt text](https://github.com/Fblaze1/Datasmos/blob/master/images/datasmos%20regression%20example.png "")
 
 ### Export your graph as a PNG or SVG image file
 
@@ -327,7 +327,7 @@ See [this Wikipedia article](https://en.wikipedia.org/wiki/Scalable_Vector_Graph
 
 The animated GIF below demonstrates how to export a graph as PNG and SVG.
 
-![alt text](https://github.com/Fblaze1/Datasmos/blob/master/datasmos%20export%20demo.gif "export graph demo GIF")
+![alt text](https://github.com/Fblaze1/Datasmos/blob/master/images/datasmos%20export%20demo.gif "export graph demo GIF")
 
 ## DataFrame properties
 
@@ -583,7 +583,7 @@ irisDfsBySpecies.forEach((df,i)=>df.splot(`species${irisDf.factorLevelDict["spec
 ```
 Result:
 
-![alt text](https://github.com/Fblaze1/Datasmos/blob/master/datasmos%20splitByFactor%20scatterplot%20example.png "splitByFactor scatterplot example")
+![alt text](https://github.com/Fblaze1/Datasmos/blob/master/images/datasmos%20splitByFactor%20scatterplot%20example.png "splitByFactor scatterplot example")
 
 ### Add a row to a DataFrame
 
