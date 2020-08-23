@@ -188,7 +188,9 @@ The output of this function removes the quotes around strings so values of `1` a
 
 `scatterplot(id,xColumnHeader,yColumnHeader,lines=false,points=true)`
 
-Scatterplots can easily be implemented in desmos just by creating a table of the x and y values of each point you want to plot, which is exactly what the `scatterplot` method does. 
+Scatterplots can easily be implemented in desmos just by creating a table of the x and y values of each point you want to plot, which is exactly what the `scatterplot` method does.
+
+The `scatterplot` method plots a `"continuous"` column specified by `yColumnHeader` against another `"continuous"` column specified by `xColumnHeader`.
 
 ```javascript
 irisDf.scatterplot("scatter1","petal length","sepal length")
@@ -221,7 +223,45 @@ Both the `points` and `lines` optional arguments directly correspond to settings
 
 ### Make a barchart
 
-`barchart()`
+`barchart(id,xColumnHeader,yColumnHeader,{xTitle = null,yTitle = null,barColours = null,barOutlineColours = null})`
+
+The `barchart` method creates a barchart in which a `"continuous"` column specified by `yColumnHeader` is plotted against a `"categorical"` column specified by `xColumnHeader`.
+
+```javascript
+irisDf.barchart("barchart1","species","sepal width")
+```
+Result:
+
+![alt text]( "barchart example")
+
+#### Customising a barchart in desmos
+
+This animated GIF below demonstrates how to use all the different customisation options available once you've created the barchart.
+
+![alt text]( "barchart customisation demo GIF")
+
+#### Customising a barchart using optional arguments
+
+The `xTitle` and `yTitle` optional arguments let you override the x-axis and y-axis titles if you don't want them to be the same as `xColumnHeader` and `yColumnHeader` respectively.
+
+The `barColours` optional argument lets you specify the colour you want each bar in the barchart to be by passing the argument an array of colours in [hex code](https://www.w3schools.com/colors/colors_hexadecimal.asp). Since you need to specify a colour for each bar, the number of items in the array must equal the number of bars in your barchart.
+
+If `barColours` is not specified, each bar will be grey (the specific shade is `"#999999"`).
+
+The `barOutlineColours` optional argument lets you specify the colour of the outline of each bar and works in the same way as `barColours`. If `barOutlineColours` is not specified, each bar's outline will be black (`"#000000"`).
+
+Note that `barOutlineColours` will not change the colour of the error bars - they will remain black.
+
+The optional arguments to this method can be supplied in any order using [parameter destructuring](https://javascript.info/destructuring-assignment#smart-function-parameters) and have to be passed using their names. This allows you to choose which optional arguments to specify.
+
+```javascript
+irisDf.barchart("barchart2","species","petal length",{
+        barOutlineColours: ["#FF0000","#00FF00","#0000FF"],
+        xTitle: "iris species"
+    }
+)
+//in this example, xTitle and barColours are specified, but yTitle and barOutlineColours are not
+```
 
 ### Perform an Analysis of Variance
 
