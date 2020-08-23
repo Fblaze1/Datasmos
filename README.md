@@ -20,9 +20,12 @@ A script for performing data analysis and visualisation in the desmos online gra
     -   [Export a DataFrame to CSV or TSV](#export-a-dataframe-to-csv-or-tsv)
 -   [Statistical Analysis and Data Visualisation](#statistical-analysis-and-data-visualisation)
     -   [Make a scatterplot](#make-a-scatterplot)
+        -   [Customising a barchart using optional arguments](#customising-a-barchart-using-optional-arguments)
+        -   [Customising a barchart in desmos](#customising-a-barchart-in-desmos)
     -   [Make a barchart](#make-a-barchart)
     -   [Perform an Analysis of Variance](#perform-an-analysis-of-variance)
     -   [Make a scatterplot with a line of best fit](#make-a-scatterplot-with-a-line-of-best-fit)
+    -   [Export your graph as a PNG or SVG image file](#export-your-graph-as-a-png-or-svg-image-file)
 -   [DataFrame properties](#dataframe-properties)
     -   [`size`](#size)
     -   [`headerRow`](#headerrow)
@@ -262,17 +265,18 @@ Result:
 
 #### Customising a barchart in desmos
 
-Once you have created a barchart, you will see the interactive customisation sliders superimposed over the barchart in desmos. The animated GIFs in this section demonstrate how to customise the barchart using these features. 
+Once you have created a barchart, you will see the interactive customisation sliders superimposed over the barchart in desmos. 
 
-Click one of the titles below to expand the section containing the corresponding GIF.
+This interface can be controlled by dragging the points as demonstrated in the animated GIF in the [Getting Started](#getting-started) section. The best way to find out what all the controls do is to experiment with them. Generally, blue dots can be dragged horizontally and red dots can be dragged vertically.
 
-TODO: remove this template from the final version of the README
-<details>
-    <summary>thing you want to do</summary>
-![alt text](link "alt text")
-</details>
+The aforementioned GIF also demonstrates how to hide the customisation interface once you are satisfied with the barchart, and want to [export the image](#export-your-graph-as-a-png-or-svg-image-file), by clicking on the folder icon next to the customisation folder.
 
-
+Inside the barchart setup folder are some more customisation sliders. The function of each of these sliders is listed in order:
+* Toggle whether to show y-axis tickmarks
+* Toggle whether to show major y-axis gridlines
+* Toggle whether to show minor y-axis gridlines
+* Control minor gridline density - the number of minor gridlines per major gridline
+* Control the opacity of the fill colour of the bars - this will make the shade of the fill colour fainter as well as making the gridlines visible through the bars
 
 ### Perform an Analysis of Variance
 
@@ -282,6 +286,16 @@ TODO: remove this template from the final version of the README
 ### Make a scatterplot with a line of best fit
 
 `splot()`
+
+### Export your graph as a PNG or SVG image file
+
+Desmos has a built in feature that allows you to download an image of your graph as a PNG or SVG image.
+
+See [this Wikipedia article](#https://en.wikipedia.org/wiki/Scalable_Vector_Graphics#Overview) for an overview of the difference between PNG and SVG images. Essentially, SVG images are stored as collections of shapes, not pixels, so they look good no matter how much you zoom in.
+
+The animated GIF below demonstrates how to export a graph as PNG and SVG.
+
+![alt text](https://github.com/Fblaze1/Datasmos/blob/master/datasmos%20export%20demo.gif "export graph demo GIF")
 
 ## DataFrame properties
 
