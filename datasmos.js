@@ -1,4 +1,4 @@
-datasmosVersion = "2.2.1"
+datasmosVersion = "2.2.2"
 
 transpose = function(matrix){
 	//https://stackoverflow.com/questions/17428587/transposing-a-2d-array-in-javascript
@@ -397,7 +397,7 @@ generateBarchartExpressionsCategoricalByContinuous = function(id,levels,xTitle,y
 			id: `${id} customisation show extra customisation slider dot`,
 			folderId: `${id} customisation folder`,
 			color: `#000000`,
-			latex: `\\left(s_{0${id}}+1.1S_{x${id}},s_{3${id}}+0.25s_{4${id}}\\left(1+s_{5y${id}}\\right)\\max\\left(M_{g${id}}\\right)+0.5s_{4${id}}\\max\\left(M_{g${id}}\\right)s_{howExtraCustomisation${id}}\\right)`,
+			latex: `\\left(s_{0${id}}+1.1S_{x${id}},s_{3${id}}+0.25S_{y${id}}+0.5S_{y${id}}s_{howExtraCustomisation${id}}\\right)`,
 			showLabel: true,
 			label: `show extra customisation off/on`,
 			dragMode: `Y`,
@@ -409,7 +409,7 @@ generateBarchartExpressionsCategoricalByContinuous = function(id,levels,xTitle,y
 			id: `${id} customisation show extra customisation slider line`,
 			folderId: `${id} customisation folder`,
 			color: `#000000`,
-			latex: `\\left(s_{0${id}}+1.1S_{x${id}},s_{3${id}}+0.25s_{4${id}}\\left(1+s_{5y${id}}\\right)\\max\\left(M_{g${id}}\\right)+0.5s_{4${id}}\\max\\left(M_{g${id}}\\right)t\\right)`
+			latex: `\\left(s_{0${id}}+1.1S_{x${id}},s_{3${id}}+0.25S_{y${id}}+0.5S_{y${id}}t\\right)`
 		},
 		{
 			type: `expression`,
@@ -474,7 +474,7 @@ generateBarchartExpressionsCategoricalByContinuous = function(id,levels,xTitle,y
 			id: `${id} customisation x axis extension`,
 			folderId: `${id} customisation folder`,
 			color: `#2d70b3`,
-			latex: `\\left(\\left(\\sqrt{s_{howExtraCustomisation${id}}-1}+1\\right)s_{0${id}}+s_{1${id}}s_{6${id}}+s_{1${id}}\\left(\\max\\left(l_{${id}}\\right)+0.5\\right)+s_{5x${id}}s_{1${id}},s_{3${id}}\\right)`,
+			latex: `\\left(\\left(\\sqrt{s_{howExtraCustomisation${id}}-1}+1\\right)s_{0${id}}+s_{1${id}}s_{6${id}}+s_{1${id}}k_{${id}}+s_{5x${id}}s_{1${id}},s_{3${id}}\\right)`,
 			showLabel: true,
 			label: `x axis extension`,
 			dragMode: `X`,
@@ -486,9 +486,9 @@ generateBarchartExpressionsCategoricalByContinuous = function(id,levels,xTitle,y
 			id: `${id} customisation y axis extension (continuous)`,
 			folderId: `${id} customisation folder`,
 			color: `#c74440`,
-			latex: `\\left(\\left(\\sqrt{s_{howExtraCustomisation${id}}-1}+1\\right)\\left(\\sqrt{0-i_{ntegerLockYScale${id}}}+1\\right)s_{0${id}},s_{3${id}}+s_{4${id}}\\max\\left(M_{g${id}}\\right)+s_{5y${id}}s_{4${id}}\\max\\left(M_{g${id}}\\right)\\right)`,
+			latex: `\\left(\\left(\\sqrt{s_{howExtraCustomisation${id}}-1}+1\\right)\\left(\\sqrt{0-i_{ntegerLockYScale${id}}}+1\\right)s_{0${id}},s_{3${id}}+\\left(s_{4${id}}\\operatorname{ceil}\\left(\\max\\left(M_{g${id}}\\right)\\right)+s_{4${id}}s_{5y${id}}\\max\\left(M_{g${id}}\\right)\\right)\\right)`,
 			showLabel: true,
-			label: `y axis extension (continuous)`,
+			label: `y axis extension (continuous)__`,
 			dragMode: `Y`,
 			labelSize: `small`,
 			labelOrientation: `left`
@@ -500,7 +500,7 @@ generateBarchartExpressionsCategoricalByContinuous = function(id,levels,xTitle,y
 			color: `#c74440`,
 			latex: `\\left(\\left(\\sqrt{s_{howExtraCustomisation${id}}-1}+1\\right)\\left(\\sqrt{i_{ntegerLockYScale${id}}-1}+1\\right)s_{0${id}},s_{3${id}}+\\operatorname{ceil}\\left(\\max\\left(M_{g${id}}\\right)\\right)s_{4${id}}+s_{4${id}}n_{5y${id}}\\right)`,
 			showLabel: true,
-			label: `y axis extension (integer locked)`,
+			label: `y axis extension (integer locked)__`,
 			dragMode: `Y`,
 			labelSize: `small`,
 			labelOrientation: `left`
@@ -510,7 +510,7 @@ generateBarchartExpressionsCategoricalByContinuous = function(id,levels,xTitle,y
 			id: `${id} customisation y axis (continuous) dotted line`,
 			folderId: `${id} customisation folder`,
 			color: `#000000`,
-			latex: `\\left(\\left(\\sqrt{s_{howExtraCustomisation${id}}-1}+1\\right)s_{0${id}}+s_{1${id}}s_{6${id}}+s_{1${id}}\\left(\\max\\left(l_{${id}}\\right)+0.5\\right)+s_{5x${id}}s_{1${id}},s_{3${id}}+\\left(s_{4${id}}\\max\\left(M_{g${id}}\\right)+s_{5y${id}}s_{4${id}}\\max\\left(M_{g${id}}\\right)\\right)t\\right)`,
+			latex: `\\left(\\left(\\sqrt{s_{howExtraCustomisation${id}}-1}+1\\right)s_{0${id}}+s_{1${id}}s_{6${id}}+s_{1${id}}k_{${id}}+s_{5x${id}}s_{1${id}},s_{3${id}}+\\left(\\left(s_{4${id}}\\operatorname{ceil}\\left(\\max\\left(M_{g${id}}\\right)\\right)+s_{4${id}}s_{5y${id}}\\max\\left(M_{g${id}}\\right)\\right)\\right)t\\right)`,
 			lineStyle: `DOTTED`
 		},
 		{
@@ -518,7 +518,7 @@ generateBarchartExpressionsCategoricalByContinuous = function(id,levels,xTitle,y
 			id: `${id} customisation y axis (integer locked) dashed line`,
 			folderId: `${id} customisation folder`,
 			color: `#000000`,
-			latex: `\\left(\\left(\\sqrt{s_{howExtraCustomisation${id}}-1}+1\\right)s_{0${id}}+s_{1${id}}s_{6${id}}+s_{1${id}}\\left(\\max\\left(l_{${id}}\\right)+0.5\\right)+s_{5x${id}}s_{1${id}},s_{3${id}}+s_{4${id}}\\left(\\operatorname{ceil}\\left(\\max\\left(M_{g${id}}\\right)\\right)+n_{5y${id}}\\right)t\\right)`,
+			latex: `\\left(\\left(\\sqrt{s_{howExtraCustomisation${id}}-1}+1\\right)s_{0${id}}+s_{1${id}}s_{6${id}}+s_{1${id}}k_{${id}}+s_{5x${id}}s_{1${id}},s_{3${id}}+s_{4${id}}\\left(\\operatorname{ceil}\\left(\\max\\left(M_{g${id}}\\right)\\right)+n_{5y${id}}\\right)t\\right)`,
 			lineStyle: `DASHED`
 		},
 		{
@@ -526,7 +526,7 @@ generateBarchartExpressionsCategoricalByContinuous = function(id,levels,xTitle,y
 			id: `${id} customisation x axis (continuous y axis) dotted line`,
 			folderId: `${id} customisation folder`,
 			color: `#000000`,
-			latex: `\\left(\\left(\\sqrt{s_{howExtraCustomisation${id}}-1}+1\\right)s_{0${id}}+\\left(s_{1${id}}s_{6${id}}+s_{1${id}}\\left(\\max\\left(l_{${id}}\\right)+0.5\\right)+s_{5x${id}}s_{1${id}}\\right)t,s_{3${id}}+s_{4${id}}\\max\\left(M_{g${id}}\\right)+s_{5y${id}}s_{4${id}}\\max\\left(M_{g${id}}\\right)\\right)`,
+			latex: `\\left(\\left(\\sqrt{s_{howExtraCustomisation${id}}-1}+1\\right)s_{0${id}}+\\left(s_{1${id}}s_{6${id}}+s_{1${id}}k_{${id}}+s_{5x${id}}s_{1${id}}\\right)t,s_{3${id}}+\\left(s_{4${id}}\\operatorname{ceil}\\left(\\max\\left(M_{g${id}}\\right)\\right)+s_{4${id}}s_{5y${id}}\\max\\left(M_{g${id}}\\right)\\right)\\right)`,
 			lineStyle: `DOTTED`
 		},
 		{
@@ -534,7 +534,7 @@ generateBarchartExpressionsCategoricalByContinuous = function(id,levels,xTitle,y
 			id: `${id} customisation x axis (integer locked y axis) dashed line`,
 			folderId: `${id} customisation folder`,
 			color: `#000000`,
-			latex: `\\left(\\left(\\sqrt{s_{howExtraCustomisation${id}}-1}+1\\right)s_{0${id}}+\\left(s_{1${id}}s_{6${id}}+s_{1${id}}\\left(\\max\\left(l_{${id}}\\right)+0.5\\right)+s_{5x${id}}s_{1${id}}\\right)t,s_{3${id}}+s_{4${id}}\\left(\\operatorname{ceil}\\left(\\max\\left(M_{g${id}}\\right)\\right)+n_{5y${id}}\\right)\\right)`,
+			latex: `\\left(\\left(\\sqrt{s_{howExtraCustomisation${id}}-1}+1\\right)s_{0${id}}+\\left(s_{1${id}}s_{6${id}}+s_{1${id}}k_{${id}}+s_{5x${id}}s_{1${id}}\\right)t,s_{3${id}}+s_{4${id}}\\left(\\operatorname{ceil}\\left(\\max\\left(M_{g${id}}\\right)\\right)+n_{5y${id}}\\right)\\right)`,
 			lineStyle: `DASHED`
 		},
 		{
@@ -542,7 +542,7 @@ generateBarchartExpressionsCategoricalByContinuous = function(id,levels,xTitle,y
 			id: `${id} customisation number of y axis marks`,
 			folderId: `${id} customisation folder`,
 			color: `#c74440`,
-			latex: `\\left(\\left(\\sqrt{s_{howExtraCustomisation${id}}-1}+1\\right)s_{0${id}}-0.4S_{x${id}},s_{3${id}}+\\left(2\\cdot5\\right)^{-1}s_{4${id}}\\max\\left(M_{g${id}}\\right)n_{y${id}}\\right)`,
+			latex: `\\left(\\left(\\sqrt{s_{howExtraCustomisation${id}}-1}+1\\right)s_{0${id}}-0.4S_{x${id}},s_{3${id}}+\\left(2\\cdot5\\right)^{-1}S_{y${id}}n_{y${id}}\\right)`,
 			showLabel: true,
 			label: `Number of y axis marks = \${n_{y${id}}}`,
 			dragMode: `Y`,
@@ -555,7 +555,7 @@ generateBarchartExpressionsCategoricalByContinuous = function(id,levels,xTitle,y
 			id: `${id} customisation integer lock toggle slider dot`,
 			folderId: `${id} customisation folder`,
 			color: `#c74440`,
-			latex: `\\left(\\left(\\sqrt{s_{howExtraCustomisation${id}}-1}+1\\right)s_{0${id}}-0.6S_{x${id}},s_{3${id}}+s_{4${id}}\\max\\left(M_{g${id}}\\right)i_{ntegerLockYScale${id}}\\right)`,
+			latex: `\\left(\\left(\\sqrt{s_{howExtraCustomisation${id}}-1}+1\\right)s_{0${id}}-0.6S_{x${id}},s_{3${id}}+S_{y${id}}i_{ntegerLockYScale${id}}\\right)`,
 			showLabel: true,
 			label: `Integer max y axis lock off/on`,
 			dragMode: `Y`,
@@ -568,7 +568,7 @@ generateBarchartExpressionsCategoricalByContinuous = function(id,levels,xTitle,y
 			id: `${id} customisation integer lock toggle slider line`,
 			folderId: `${id} customisation folder`,
 			color: `#c74440`,
-			latex: `\\left(\\left(\\sqrt{s_{howExtraCustomisation${id}}-1}+1\\right)s_{0${id}}-0.6S_{x${id}},s_{3${id}}+s_{4${id}}\\max\\left(M_{g${id}}\\right)t\\right)`,
+			latex: `\\left(\\left(\\sqrt{s_{howExtraCustomisation${id}}-1}+1\\right)s_{0${id}}-0.6S_{x${id}},s_{3${id}}+S_{y${id}}t\\right)`,
 			dragMode: `Y`,
 			labelSize: `small`,
 			labelOrientation: `left`,
@@ -630,7 +630,7 @@ generateBarchartExpressionsCategoricalByContinuous = function(id,levels,xTitle,y
 			id: `${id} customisation label error bar type`,
 			folderId: `${id} customisation folder`,
 			color: `#2d70b3`,
-			latex: `\\left(s_{0${id}}+S_{x${id}}\\cdot\\left(0.2+0.3\\right),\\max\\left(a_{y${id}}\\right)+0.3S_{y${id}}\\right)`,
+			latex: `\\left(s_{0${id}}+S_{x${id}}\\cdot\\left(0.2+0.3\\right),\\left\\{i_{ntegerLockYScale${id}}=0:s_{3${id}}+\\left(s_{4${id}}\\operatorname{ceil}\\left(\\max\\left(M_{g${id}}\\right)\\right)+s_{4${id}}s_{5y${id}}\\max\\left(M_{g${id}}\\right)\\right),i_{ntegerLockYScale${id}}=1:s_{3${id}}+s_{4${id}}\\left(\\operatorname{ceil}\\left(\\max\\left(M_{g${id}}\\right)\\right)+n_{5y${id}}\\right)\\right\\}+0.3S_{y${id}}\\right)`,
 			showLabel: true,
 			label: `error bar type`,
 			hidden: true,
@@ -642,14 +642,14 @@ generateBarchartExpressionsCategoricalByContinuous = function(id,levels,xTitle,y
 			id: `${id} customisation error bar type slider line`,
 			folderId: `${id} customisation folder`,
 			color: `#2d70b3`,
-			latex: `\\left(s_{0${id}}+S_{x${id}}\\cdot\\left(0.2+0.6t\\right),\\max\\left(a_{y${id}}\\right)+0.1S_{y${id}}\\right)`
+			latex: `\\left(s_{0${id}}+S_{x${id}}\\cdot\\left(0.2+0.6t\\right),\\left\\{i_{ntegerLockYScale${id}}=0:s_{3${id}}+\\left(s_{4${id}}\\operatorname{ceil}\\left(\\max\\left(M_{g${id}}\\right)\\right)+s_{4${id}}s_{5y${id}}\\max\\left(M_{g${id}}\\right)\\right),i_{ntegerLockYScale${id}}=1:s_{3${id}}+s_{4${id}}\\left(\\operatorname{ceil}\\left(\\max\\left(M_{g${id}}\\right)\\right)+n_{5y${id}}\\right)\\right\\}+0.1S_{y${id}}\\right)`
 		},
 		{
 			type: `expression`,
 			id: `${id} customisation error bar type label none`,
 			folderId: `${id} customisation folder`,
 			color: `#2d70b3`,
-			latex: `\\left(s_{0${id}}+S_{x${id}}\\cdot\\left(0.2+0.6\\frac{0}{n_{umErrorBarTypes${id}}}\\right),\\max\\left(a_{y${id}}\\right)+0.1S_{y${id}}\\right)`,
+			latex: `\\left(s_{0${id}}+S_{x${id}}\\cdot\\left(0.2+0.6\\frac{0}{n_{umErrorBarTypes${id}}}\\right),\\left\\{i_{ntegerLockYScale${id}}=0:s_{3${id}}+\\left(s_{4${id}}\\operatorname{ceil}\\left(\\max\\left(M_{g${id}}\\right)\\right)+s_{4${id}}s_{5y${id}}\\max\\left(M_{g${id}}\\right)\\right),i_{ntegerLockYScale${id}}=1:s_{3${id}}+s_{4${id}}\\left(\\operatorname{ceil}\\left(\\max\\left(M_{g${id}}\\right)\\right)+n_{5y${id}}\\right)\\right\\}+0.1S_{y${id}}\\right)`,
 			showLabel: true,
 			label: `none`,
 			hidden: true,
@@ -662,7 +662,7 @@ generateBarchartExpressionsCategoricalByContinuous = function(id,levels,xTitle,y
 			id: `${id} customisation error bar type label grouped data summary statistics 95% confidence intervals% CI`,
 			folderId: `${id} customisation folder`,
 			color: `#2d70b3`,
-			latex: `\\left(s_{0${id}}+S_{x${id}}\\cdot\\left(0.2+0.6\\frac{1}{n_{umErrorBarTypes${id}}}\\right),\\max\\left(a_{y${id}}\\right)+0.1S_{y${id}}\\right)`,
+			latex: `\\left(s_{0${id}}+S_{x${id}}\\cdot\\left(0.2+0.6\\frac{1}{n_{umErrorBarTypes${id}}}\\right),\\left\\{i_{ntegerLockYScale${id}}=0:s_{3${id}}+\\left(s_{4${id}}\\operatorname{ceil}\\left(\\max\\left(M_{g${id}}\\right)\\right)+s_{4${id}}s_{5y${id}}\\max\\left(M_{g${id}}\\right)\\right),i_{ntegerLockYScale${id}}=1:s_{3${id}}+s_{4${id}}\\left(\\operatorname{ceil}\\left(\\max\\left(M_{g${id}}\\right)\\right)+n_{5y${id}}\\right)\\right\\}+0.1S_{y${id}}\\right)`,
 			showLabel: true,
 			label: `95% CI`,
 			hidden: true,
@@ -675,7 +675,7 @@ generateBarchartExpressionsCategoricalByContinuous = function(id,levels,xTitle,y
 			id: `${id} customisation error bar type label SEM`,
 			folderId: `${id} customisation folder`,
 			color: `#2d70b3`,
-			latex: `\\left(s_{0${id}}+S_{x${id}}\\cdot\\left(0.2+0.6\\frac{2}{n_{umErrorBarTypes${id}}}\\right),\\max\\left(a_{y${id}}\\right)+0.1S_{y${id}}\\right)`,
+			latex: `\\left(s_{0${id}}+S_{x${id}}\\cdot\\left(0.2+0.6\\frac{2}{n_{umErrorBarTypes${id}}}\\right),\\left\\{i_{ntegerLockYScale${id}}=0:s_{3${id}}+\\left(s_{4${id}}\\operatorname{ceil}\\left(\\max\\left(M_{g${id}}\\right)\\right)+s_{4${id}}s_{5y${id}}\\max\\left(M_{g${id}}\\right)\\right),i_{ntegerLockYScale${id}}=1:s_{3${id}}+s_{4${id}}\\left(\\operatorname{ceil}\\left(\\max\\left(M_{g${id}}\\right)\\right)+n_{5y${id}}\\right)\\right\\}+0.1S_{y${id}}\\right)`,
 			showLabel: true,
 			label: `SEM`,
 			hidden: true,
@@ -688,7 +688,7 @@ generateBarchartExpressionsCategoricalByContinuous = function(id,levels,xTitle,y
 			id: `${id} customisation error bar type label SD`,
 			folderId: `${id} customisation folder`,
 			color: `#2d70b3`,
-			latex: `\\left(s_{0${id}}+S_{x${id}}\\cdot\\left(0.2+0.6\\frac{3}{n_{umErrorBarTypes${id}}}\\right),\\max\\left(a_{y${id}}\\right)+0.1S_{y${id}}\\right)`,
+			latex: `\\left(s_{0${id}}+S_{x${id}}\\cdot\\left(0.2+0.6\\frac{3}{n_{umErrorBarTypes${id}}}\\right),\\left\\{i_{ntegerLockYScale${id}}=0:s_{3${id}}+\\left(s_{4${id}}\\operatorname{ceil}\\left(\\max\\left(M_{g${id}}\\right)\\right)+s_{4${id}}s_{5y${id}}\\max\\left(M_{g${id}}\\right)\\right),i_{ntegerLockYScale${id}}=1:s_{3${id}}+s_{4${id}}\\left(\\operatorname{ceil}\\left(\\max\\left(M_{g${id}}\\right)\\right)+n_{5y${id}}\\right)\\right\\}+0.1S_{y${id}}\\right)`,
 			showLabel: true,
 			label: `SD`,
 			hidden: true,
@@ -701,7 +701,7 @@ generateBarchartExpressionsCategoricalByContinuous = function(id,levels,xTitle,y
 			id: `${id} customisation error bar type slider dot`,
 			folderId: `${id} customisation folder`,
 			color: `#2d70b3`,
-			latex: `\\left(s_{0${id}}+S_{x${id}}\\cdot\\left(0.2+0.6\\frac{e_{rrorBarType${id}}}{n_{umErrorBarTypes${id}}}\\right),\\max\\left(a_{y${id}}\\right)+0.1S_{y${id}}\\right)`,
+			latex: `\\left(s_{0${id}}+S_{x${id}}\\cdot\\left(0.2+0.6\\frac{e_{rrorBarType${id}}}{n_{umErrorBarTypes${id}}}\\right),\\left\\{i_{ntegerLockYScale${id}}=0:s_{3${id}}+\\left(s_{4${id}}\\operatorname{ceil}\\left(\\max\\left(M_{g${id}}\\right)\\right)+s_{4${id}}s_{5y${id}}\\max\\left(M_{g${id}}\\right)\\right),i_{ntegerLockYScale${id}}=1:s_{3${id}}+s_{4${id}}\\left(\\operatorname{ceil}\\left(\\max\\left(M_{g${id}}\\right)\\right)+n_{5y${id}}\\right)\\right\\}+0.1S_{y${id}}\\right)`,
 			dragMode: `XY`,
 			labelSize: `small`
 		},
@@ -803,7 +803,7 @@ generateBarchartExpressionsCategoricalByContinuous = function(id,levels,xTitle,y
 			id: `${id} barchart setup minor y gridlines`,
 			folderId: `${id} barchart setup folder`,
 			color: `#000000`,
-			latex: `\\left(\\left(\\sqrt{s_{howMinorYGridlines${id}}-1}+1\\right)s_{0${id}}+S_{x${id}}t,\\left\\{i_{ntegerLockYScale${id}}=0:s_{3${id}}+\\left(1+s_{5y${id}}\\right)s_{4${id}}\\max\\left(M_{g${id}}\\right)\\cdot\\left[0,\\frac{1}{m_{inorGridlineDensity${id}}n_{y${id}}}...1\\right],i_{ntegerLockYScale${id}}=1:s_{3${id}}+s_{4${id}}\\left(\\operatorname{ceil}\\left(\\max\\left(M_{g${id}}\\right)\\right)+n_{5y${id}}\\right)\\cdot\\left[0,\\frac{1}{m_{inorGridlineDensity${id}}n_{y${id}}}...1\\right]\\right\\}\\right)`,
+			latex: `\\left(\\left(\\sqrt{s_{howMinorYGridlines${id}}-1}+1\\right)s_{0${id}}+S_{x${id}}t,\\left\\{i_{ntegerLockYScale${id}}=0:s_{3${id}}+\\left(s_{4${id}}\\operatorname{ceil}\\left(\\max\\left(M_{g${id}}\\right)\\right)+s_{4${id}}s_{5y${id}}\\max\\left(M_{g${id}}\\right)\\right)\\cdot\\left[0,\\frac{1}{m_{inorGridlineDensity${id}}n_{y${id}}}...1\\right],i_{ntegerLockYScale${id}}=1:s_{3${id}}+s_{4${id}}\\left(\\operatorname{ceil}\\left(\\max\\left(M_{g${id}}\\right)\\right)+n_{5y${id}}\\right)\\cdot\\left[0,\\frac{1}{m_{inorGridlineDensity${id}}n_{y${id}}}...1\\right]\\right\\}\\right)`,
 			lineWidth: `0.2`
 		},
 		{
@@ -1023,7 +1023,7 @@ generateBarchartExpressionsCategoricalByContinuous = function(id,levels,xTitle,y
 			id: `${id} setup y axis line continuous`,
 			folderId: `${id} barchart setup folder`,
 			color: `#000000`,
-			latex: `\\left(s_{0${id}},s_{3${id}}+\\left(\\left(1+s_{5y${id}}\\right)s_{4${id}}\\max\\left(M_{g${id}}\\right)\\right)t\\right)\\left\\{i_{ntegerLockYScale${id}}=0\\right\\}`
+			latex: `\\left(s_{0${id}},s_{3${id}}+\\left(\\left(s_{4${id}}\\operatorname{ceil}\\left(\\max\\left(M_{g${id}}\\right)\\right)+s_{4${id}}s_{5y${id}}\\max\\left(M_{g${id}}\\right)\\right)\\right)t\\right)\\left\\{i_{ntegerLockYScale${id}}=0\\right\\}`
 		},
 		{
 			type: `text`,
@@ -1083,7 +1083,7 @@ generateBarchartExpressionsCategoricalByContinuous = function(id,levels,xTitle,y
 			id: `${id} barchart setup y axis mark position list`,
 			folderId: `${id} barchart setup folder`,
 			color: `#388c46`,
-			latex: `a_{y${id}}=\\left\\{i_{ntegerLockYScale${id}}=0:s_{3${id}}+\\left(1+s_{5y${id}}\\right)s_{4${id}}\\max\\left(M_{g${id}}\\right)\\cdot\\left[0,\\frac{1}{n_{y${id}}}...1\\right],i_{ntegerLockYScale${id}}=1:s_{3${id}}+s_{4${id}}\\left(\\operatorname{ceil}\\left(\\max\\left(M_{g${id}}\\right)\\right)+n_{5y${id}}\\right)\\cdot\\left[0,\\frac{1}{n_{y${id}}}...1\\right]\\right\\}`
+			latex: `a_{y${id}}=\\left\\{i_{ntegerLockYScale${id}}=0:s_{3${id}}+\\left(s_{4${id}}\\operatorname{ceil}\\left(\\max\\left(M_{g${id}}\\right)\\right)+s_{4${id}}s_{5y${id}}\\max\\left(M_{g${id}}\\right)\\right)\\cdot\\left[0,\\frac{1}{n_{y${id}}}...1\\right],i_{ntegerLockYScale${id}}=1:s_{3${id}}+s_{4${id}}\\left(\\operatorname{ceil}\\left(\\max\\left(M_{g${id}}\\right)\\right)+n_{5y${id}}\\right)\\cdot\\left[0,\\frac{1}{n_{y${id}}}...1\\right]\\right\\}`
 		},
 		{
 			type: `expression`,
