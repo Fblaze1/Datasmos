@@ -232,7 +232,7 @@ irisDf.barchart("barchart1","species","sepal width")
 ```
 Result:
 
-![alt text]( "barchart example")
+![alt text](https://github.com/Fblaze1/Datasmos/blob/master/datasmos%20barchart%20example.png "barchart example")
 
 #### Customising a barchart in desmos
 
@@ -256,12 +256,15 @@ The optional arguments to this method can be supplied in any order using [parame
 
 ```javascript
 irisDf.barchart("barchart2","species","petal length",{
-        barOutlineColours: ["#FF0000","#00FF00","#0000FF"],
+        barColours: ["#FF0000","#00FF00","#0000FF"],
         xTitle: "iris species"
     }
 )
 //in this example, xTitle and barColours are specified, but yTitle and barOutlineColours are not
 ```
+Result:
+
+![alt text](https://github.com/Fblaze1/Datasmos/blob/master/datasmos%20barchart%20set%20barColours%20example.png "barchart set barColours example")
 
 ### Perform an Analysis of Variance
 
