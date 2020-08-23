@@ -3,6 +3,8 @@
 A script for performing data analysis and visualisation in the desmos online graphing calculator
 
 ## Table of Contents
+<details>
+<summary>Click to expand</summary>
 
 -   [Introduction](#introduction)
 -   [Getting Started](#getting-started)
@@ -46,6 +48,8 @@ A script for performing data analysis and visualisation in the desmos online gra
     -   [Split a DataFrame based on a categorical variable](#split-a-dataframe-based-on-a-categorical-variable)
     -   [Add a row to a DataFrame](#add-a-row-to-a-dataframe)
 -   [Passing multiple `header` arguments to DataFrame methods](#passing-multiple-header-arguments-to-dataframe-methods)
+</details>
+
 ## Introduction
 
 The two main things this datasmos does are:
