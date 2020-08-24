@@ -1,4 +1,4 @@
-datasmosVersion = "2.2.3"
+datasmosVersion = "2.2.4"
 
 transpose = function(matrix){
 	//https://stackoverflow.com/questions/17428587/transposing-a-2d-array-in-javascript
@@ -1900,9 +1900,10 @@ class DataFrame {
 					Object.entries(row).map(
 						keyValuePair =>
 							[
-								(keyValuePair[0] == header)?
+								(keyValuePair[0] == header)
+								?//if key in the row matches the target header
 									newHeader
-								:
+								://otherwise
 									keyValuePair[0]
 							,
 								keyValuePair[1]
