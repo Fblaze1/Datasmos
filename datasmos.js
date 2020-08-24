@@ -1,4 +1,4 @@
-datasmosVersion = "2.2.2"
+datasmosVersion = "2.2.3"
 
 transpose = function(matrix){
 	//https://stackoverflow.com/questions/17428587/transposing-a-2d-array-in-javascript
@@ -2117,10 +2117,10 @@ class DataFrame {
 	}
 	
 	barchart(id,xColumnHeader,yColumnHeader,{xTitle = null,yTitle = null,barColours = null,barOutlineColours = null}={}){//id must not contain LaTeX subscripts
-		var xTitle = xTitle || xColumnHeader
-		var yTitle = yTitle || yColumnHeader
-		var barColours = (barColours instanceof Array)? barColours : "default"
-		var barOutlineColours = (barOutlineColours instanceof Array)? barOutlineColours : "default"
+		xTitle = xTitle || xColumnHeader
+		yTitle = yTitle || yColumnHeader
+		barColours = (barColours instanceof Array)? barColours : "default"
+		barOutlineColours = (barOutlineColours instanceof Array)? barOutlineColours : "default"
 		var levels = this.factorLevelDict[xColumnHeader]
 		var dataColumns = transpose(this.dataRows)
 		var xCategoricalData = dataColumns[this.headerIndexDict[xColumnHeader]]
