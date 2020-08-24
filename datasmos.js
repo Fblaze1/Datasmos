@@ -1900,10 +1900,9 @@ class DataFrame {
 					Object.entries(row).map(
 						keyValuePair =>
 							[
-								(keyValuePair[0] == header)
-								?//if key in the row matches the target header
+								(keyValuePair[0] == header)?
 									newHeader
-								://otherwise
+								:
 									keyValuePair[0]
 							,
 								keyValuePair[1]
